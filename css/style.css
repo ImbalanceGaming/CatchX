@@ -1,0 +1,147 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 8, 2015, 9:36:43 PM
+    Author     : Frank
+*/
+
+/* fonts*/
+
+
+@font-face {
+    font-family: mafiaFont;
+    src: url(../fonts/maffiaFont.ttf);
+}
+
+
+/* shared */
+
+button
+{
+    margin-top:50px;
+    width: 700px; 
+    background: linear-gradient(#F6FF00, #A8AD00); 
+    font-size: 70px;
+}
+
+body{
+    background-color:black;
+}
+
+input[type="submit"]
+{
+    width: 200px; 
+    background: linear-gradient(#F6FF00, #A8AD00); 
+    font-size: 40px;
+    font-family: mafiaFont;
+}
+
+h1, h2
+{
+    font-family: mafiaFont;
+}
+
+h1
+{
+    font-size:60px;
+}
+
+h2{
+    font-size: 50px;
+}
+
+/* home */
+
+#home
+{
+    text-align: center;
+    font-family: mafiaFont;
+}
+
+#home h1{
+    font-size: 150px;
+}
+
+#homeBannerContainer
+{    
+    padding-top:20px;
+    background: linear-gradient(#F6FF00, #A8AD00);
+}
+
+/* games */
+
+/* games/shared */
+#gamesIndex, #gamesHost
+{
+    color:yellow;    
+}
+
+#gamesIndex input, #gamesHost input
+{
+    color:black
+}
+
+/* bootstrap */
+
+.navbar-default {
+	background-color: #000000;
+	border-color: #000000;
+}
+.navbar-default .navbar-brand {
+	color: #ecf0f1;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: #ffff00;
+}
+.navbar-default .navbar-text {
+	color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #ffff00;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #ffff00;
+	background-color: #000000;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	color: #ffff00;
+	background-color: #000000;
+}
+.navbar-default .navbar-toggle {
+	border-color: #000000;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #000000;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #ecf0f1;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border-color: #ecf0f1;
+}
+.navbar-default .navbar-link {
+	color: #ecf0f1;
+}
+.navbar-default .navbar-link:hover {
+	color: #ffff00;
+}
+
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #ecf0f1;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #ffff00;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: #ffff00;
+		background-color: #000000;
+	}
+}
