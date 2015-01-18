@@ -2,10 +2,51 @@
 
 class GamesModel extends CI_Model {
 
+    function createGame($name, $password)
+    {
+        $this->load->model('gameStateModel');
+        
+        if (!nameExistsAndGameIsActive($name))
+        {
+            $data = array(
+            'name' => $name ,
+            'password' => $password ,
+            'active' => true ,
+            'gameState' => getInitialGameState()
+         );
+
+         $this->db->insert('mytable', $data); 
+        }
+        else
+        {
+            return false;
+        }
+    }
     
+    function nameExistsAndGameIsActive($name)
+    {
+        $this->db->where('name', $name); 
+        $this->db->where('active', true); 
+        $query = $this->db->get('games');
+        
+        if ($query->num_rows() > 1)
+        {
+            # TODO: add error handling or post a log 
+        }
+        
+        if ($query->num_rows() == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     function getGames()
     {
+        $this->db->where('active', true);
         $query = $this->db->query('SELECT name FROM games');
         $names = [];
         
