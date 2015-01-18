@@ -23,8 +23,34 @@ class games extends CI_Controller {
     
     public function join($name)
     {
+        $data = array(
+            'gameName'=>$name
+        );
+
         $this->load->view("shared/header");
+        $this->load->view("games/join", $data);
         $this->load->view("shared/footer");
+    }
+
+    public function checkPassword() {
+
+        $passwordCheck = $this->gamesModel->checkPassword($this->input->post('gameName'), $this->input->post('password'));
+
+        if ($passwordCheck) {
+            $this->load->view("shared/header");
+            $this->load->view("games/game");
+            $this->load->view("shared/footer");
+        } else {
+            $gameNames = $this->gamesModel->getGames();
+            $games = array(
+                'gameNames' => $gameNames
+            );
+
+            $this->load->view("shared/header");
+            $this->load->view("games/index", $games);
+            $this->load->view("shared/footer");
+        }
+
     }
     
     public function host()
@@ -41,8 +67,13 @@ class games extends CI_Controller {
         }
         else
         {
+            $gameNames = $this->gamesModel->getGames();
+            $games = array(
+                'gameNames' => $gameNames
+            );
+
             $this->load->view("shared/header");
-            //$this->load->view('games/index', $games);
+            $this->load->view('games/index', $games);
             $this->load->view("shared/footer");
             //redirect('/games/hostSucces/', 'refresh');
         }

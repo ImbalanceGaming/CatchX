@@ -2,6 +2,7 @@
 
 class GamesModel extends CI_Model {
 
+
     function createGame($name, $password)
     {
         $this->load->model('gameStateModel');
@@ -43,6 +44,12 @@ class GamesModel extends CI_Model {
             return false;
         }
     }
+
+    function __construct()
+    {
+        // Call the Model constructor
+        parent::__construct();
+    }
     
     function getGames()
     {
@@ -56,22 +63,17 @@ class GamesModel extends CI_Model {
         return $names;
     }
     
-    function CheckXPassword($gameName, $xPassword)
+    function checkPassword($gameName, $password)
     {        
-        $query = $this->db->get_where('games', array('name' => $gameName,'xPassword' => $xPassword), 1, 0);
+        $query = $this->db->get_where('games', array('name' => $gameName,'password' => $password), 1, 0);
         return $query->num_rows() == 1;
     }
     
-    function CheckdetectivePassword($gameName, $detectivePassword)
+    function checkDetectivePassword($gameName, $detectivePassword)
     {        
         $query = $this->db->get_where('games', array('name' => $gameName,'xPassword' => $detectivePassword), 1, 0);
         return $query->num_rows() == 1;
     }
 
-    function __construct()
-    {
-        // Call the Model constructor
-        parent::__construct();
-    }
 }
 
