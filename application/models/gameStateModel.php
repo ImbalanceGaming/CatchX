@@ -9,13 +9,47 @@ class gameStateModel extends CI_Model {
     
     function getGameState($name, $password)
     {
+        
         $this->db->where('name', $name); 
         $this->db->where('password', $password);
         $this->db->where('active', true); 
         $query = $this->db->get('games');
         if ($query->num_rows() == 1)
         {
-            return $query->row;
+            return $query->row()->gameState;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    function SetGameStateControl($side, $gameState)
+    {
+        
+        if ($side == "good")
+        {
+            $gameState->players[0]->control = false;
+            for ($i = 1; $i < count($gameState->players); $i++)
+                $gameState->players[$i]->control = true;
+        }
+        else if ($side == "evil")
+        {
+            $gameState->players[0]->control = true;
+            for ($i = 1; $i < count($gameState->players); $i++)
+                $gameState->players[$i]->control = false;
+        }
+        return $gameState;
+    }
+            
+    function getGameStateById($id, $password)
+    {
+        $this->db->where('id', $id); 
+        $this->db->where('password', $password);
+        $query = $this->db->get('games');
+        if ($query->num_rows() == 1)
+        {
+            return $query->row()->gameState;
         }
         else
         {
@@ -25,14 +59,15 @@ class gameStateModel extends CI_Model {
     
     function moveValid($gameState, $player, $position, $destination, $hidden, $double)
     {
-        if (playerExists($gameState, $player, $position) &&
-            nodeIsEmpty($gameState, $destination) &&
-            Adjacent($gameState,$position,$destination) &&
-            (($hidden && $gameState->hiddens) || !$hidden) &&
-            (($double && $gameState->doubles) || !$double))
+        if ($this->playerExists($gameState, $player, $position) &&
+            $this->nodeIsEmpty($gameState, $destination) &&
+            $this->Adjacent($gameState,$position,$destination) &&
+            (($hidden && count($gameState->hiddens) > 0) || !$hidden) &&
+            (($double && count($gameState->doubles) > 0) || !$double))
         {
             return true;
         }
+        
         return false;
     }
     
@@ -56,26 +91,34 @@ class gameStateModel extends CI_Model {
     
     function Adjacent($gameState, $node1, $node2)
     {
-        return in_array($node1, $gameState->graph->nodes[$node2]->adjacent);
+        $adjacent = $gameState->graph->nodes[$node1]->adjacent;
+        return in_array($node2, $adjacent);
     }
     
-    function doMove($gameState, $player, $position, $destination, $hidden, $double)
+    function DoMove($gameState, $player, $position, $destination, $hidden, $double)
     {
         $gameState->players[$player]->position = $destination;
         $gameState->players[$player]->turn = false;
         
         if ($player == 0)
         {
-            xMove($gameState, $player, $hidden, $double);
+            $node = $gameState->graph->nodes[$position];
+            $color = $node->colors[array_search($destination, $node->adjacent)];
+            $this->xMove($gameState, $player, $hidden, $double, $color);
         }
         else
         {
-            detectiveMove($gameState, $player);
+            $this->detectiveMove($gameState, $player);
         }
+        
+        
+        
+        return $gameState;
     }
     
-    function xMove($gameState, $player, $hidden, $double)
+    function xMove($gameState, $player, $hidden, $double, $color)
     {
+        
         # Check if joker used a hidden
         if ($hidden)
         {
@@ -146,20 +189,15 @@ class gameStateModel extends CI_Model {
         {
                 $gameState->victory = "good";
         }
-
-        $gameState->players[0]->control = false;
-        for ($i = 1; $i < count($gameState->players); $i++)
-        {
-                $gameState->players[$i]->control = true;
-        }
     }
     
-    function limitDetectiveInformation($gameState, $player)
+    function limitDetectiveInformation($gameState)
     {
         if ($gameState->victory == "none")
         {
             $gameState->players[0]->position = $gameState->lastKnownJokerPosition;
         }
+        return $gameState;
     }
     
     function saveGameState($gameState, $id)

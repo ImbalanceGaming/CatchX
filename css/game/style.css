@@ -1,0 +1,443 @@
+body
+{
+	margin:0px;
+	padding:0px;
+	overflow:hidden;
+	background-color:black;
+}
+
+#outer
+{
+	height:1200px;
+	overflow:hidden;
+}
+
+#map
+{
+	width:4357px;
+	height:6581px;
+	background-image:url("../../maps/gotham.png");
+	position:relative;
+}
+
+.node
+{
+	position:absolute;
+	width:50px;
+	height:40px;
+	border-radius:50%;
+	background-color:black;
+	border-style: solid;
+    border-width: 5px;
+	border-color:#000099;
+	text-align:center;
+	color:white;
+	font-weight:bold;
+	font-size: 150%;
+	padding-top:10px;
+}
+
+.nodeWithGreenConnection
+{
+	background-color:#325E32;
+}
+
+.nodeWithYellowConnection
+{
+	border-color:#C2B615;
+}
+
+.nodeWithBlueConnection
+{
+	color:#009C99;
+}
+
+.avatar
+{
+	position:absolute;
+}
+
+#hud
+{
+	position:fixed;
+	height:100%;
+	/* background-color:gray; */
+	width:100%;
+	pointer-events:none;
+	z-index:2;
+    /* border-bottom: 1px solid #1A1A1A; */
+}
+
+#logOuter
+{
+	position:fixed;
+	height:100%;
+	background-image:url(../../images/UIpattern.png);
+	width:115px;
+	bottom:0%;
+	box-shadow: 3px 3px 3px #888888;
+}
+
+#log
+{
+	position:fixed;
+	height:100%;
+	background-color:gray;
+	width:85px;
+	bottom:0%;
+	overflow:hidden;
+}
+
+#bottomHudElement
+{
+	position:fixed;
+	width:450px;
+	height:100px;
+	background-image:url(../../images/UIpattern.png);
+	bottom:0%;
+	right:50%;
+	left:50%;
+	transform: translate(-50%, 0);
+	box-shadow: -3px -3px 3px #888888, 3px -3px 3px #888888;
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+}
+
+#bottomHudElementInner
+{
+	margin:auto;
+	width:350px;
+	height:50px;
+	background-color:black;
+	margin-top:25px;
+	border-style: inset;
+	color:white;
+	text-align:center;
+	line-height: 50px;
+}
+
+
+
+#logInner
+{
+	width:40px;
+	padding:5px;
+	height:2000px;
+}
+
+.hudBlock, .hudCircle
+{
+	border-style:solid;
+	border-width:5px;
+	border-color:black;
+	width:40px;
+	height:40px;
+	background-color:white;
+	color:rgba(0,0,0,0);
+	font-size: 210%;
+	font-weight: bold;
+	text-align:center;
+}
+
+.hudConnection
+{
+	height:10px;
+	width:6px;
+	margin-left:16px;
+	background-color:white;;
+	border-style:solid;
+	border-width:0px;
+	border-color:black;
+	border-left-width:5px;
+	border-right-width:5px;
+}
+
+.hudCircle
+{
+	border-radius:50%;
+}
+
+#topHudElement
+{
+	margin:auto;
+	width:450px;
+	height:125px;
+	background-image:url(../../images/UIpattern.png);
+	border-bottom-right-radius:10px;
+	border-bottom-left-radius:10px;
+	box-shadow: 3px 3px 3px #888888, -3px 3px 3px #888888;
+}
+
+#innerHud
+{
+	margin:auto;
+	margin-top:0px;
+	width:400px;
+	height:100px;
+	background-color:red;
+}
+
+#hudGood
+{
+	float:left;
+	height:100%;
+	width:320px;
+	background-color:#010132;
+	padding:auto;
+	border-color:#010132;
+}
+
+.hudPortret
+{
+	margin:5px;
+	height:80px;
+	width:60px;
+	background-color:olive;
+	border-style:solid;
+	border-width:5px;
+	border-color:yellow;
+	float:left;
+	border-color:inherit;
+	
+	-webkit-animation-name: blink;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+	
+    animation-name: blink;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+	
+	
+	
+}
+
+#hudEvil
+{
+	float:left;
+	height:100%;
+	width:80px;
+	background-color:#84047A;
+	border-color:#84047A;
+}
+
+#jokerHud
+{
+	z-index:3;
+	position:absolute;
+}
+
+#cardBack
+{
+	position:absolute;
+	left:40px;
+	top:70px;
+	z-index:2;
+}
+
+.jokerCard
+{
+	position:absolute;
+	left:40px;
+	top:70px;
+	z-index:1;
+	border-style: solid;
+    border-width: 0px;
+	border-bottom-width:1px;
+}
+
+#hudNumbers
+{
+	position:absolute;
+	z-index:4;
+	top:235px;
+	text-align:center;
+	width:100%;
+	color:red;
+	font-weight:bold;
+	font-size:350%;
+	
+	text-shadow:
+   -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+     2px 2px 0 #000;
+}
+
+#goodEnding
+{
+	position:fixed;
+	left:0px;
+	top:0px;
+	z-index:10;
+}
+
+@-webkit-keyframes blink {
+    0%   {border-color:rgba(255,255,0,1);}
+	50%  {border-color:inherit;}
+    100% {border-color:rgba(255,255,0,1);}
+}
+
+/* Standard syntax */
+@keyframes blink {
+	0%   {border-color:rgba(255,255,0,1);}
+	50%  {border-color:rgba(255,255,0,0.1);}
+    100% {border-color:rgba(255,255,0,1);}
+}
+
+@-webkit-keyframes hoverPion {
+	0%   {-webkit-transform: scale(1,1);}
+	50%  {-webkit-transform: scale(1.2,1.2);}
+    100% {-webkit-transform: scale(1,1);}
+}
+
+/* Standard syntax */
+@keyframes hoverPion {
+	0%   {transform: scale(1,1);}
+	50%  {transform: scale(1.2,1.2);}
+    100% {transform: scale(1,1);}
+}
+
+
+.pion:hover
+{
+
+	-webkit-animation-name: hoverPion;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+	
+    animation-name: hoverPion;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+	
+}
+
+.selected
+{	
+	-webkit-animation-name: selectedAnimation;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+	
+    animation-name: selectedAnimation;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
+
+@-webkit-keyframes selectedAnimation {
+	0%   {-webkit-transform: scale(1.25,1.25);}
+	20%  {-webkit-transform: scale(1.3,1.3);}
+    40% {-webkit-transform: scale(1.25,1.25);}
+	100% {-webkit-transform: scale(1.25,1.25);}
+}
+
+@keyframes selectedAnimation {
+	0%   {transform: scale(1.25,1.25);}
+	20%  {transform: scale(1.3,1.3);}
+    40% {transform: scale(1.25,1.25);}
+	100% {transform: scale(1.25,1.25);}
+}
+
+.moveNode{
+	-webkit-animation-name: moveNodeAnimation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+	
+    animation-name: moveNodeAnimation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
+
+@-webkit-keyframes moveNodeAnimation {
+	0%   {-webkit-transform: scale(2, 2);}
+	50%  {-webkit-transform: scale(2.5,2.5);}
+	100% {-webkit-transform: scale(2,2);}
+}
+
+@keyframes moveNodeAnimation {
+	0%   {transform: scale(2, 2);}
+	50%  {transform: scale(2.5,2.5);}
+	100% {transform: scale(2,2);}
+}
+
+.announcementBlink{
+	-webkit-animation-name: announcementBlinkAnimation;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+	
+    animation-name: announcementBlinkAnimation;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
+
+@-webkit-keyframes announcementBlinkAnimation {
+	0%   {background-color:black;}
+	50%  {background-color:#C2B615;}
+	100% {background-color:black;}
+}
+
+@keyframes announcementBlinkAnimation {
+	0%   {background-color:black;}
+	50%  {background-color:#C2B615;}
+	100% {background-color:black;}
+}
+
+#announcement
+{
+	position:relative;
+	width:400px;
+	height:65px;
+	background-color:#010132;
+	text-align:center;
+	margin:auto;
+	padding-top:20px;
+	font-size:200%;
+	color:white;
+	border-style:solid;
+	border-color:white;
+	border-width:0px;
+	border-top-width:2px;
+}
+
+
+
+#doubleAndJokerTickets
+{
+	width:100px;
+	display:none;
+	position:fixed;
+	background-image:url(../../images/UIpattern.png);
+	color:white;
+	top:50%;
+	right:0%;
+	transform: translate(0, -50%);
+	box-shadow: -3px -3px 3px #888888, -3px 3px 3px #888888;
+	border-top-left-radius:10px;
+	border-bottom-left-radius:10px;
+}
+
+
+
+
