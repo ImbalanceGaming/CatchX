@@ -32,7 +32,7 @@
 			<div id="topHudElement">
 				<div id="innerHud">
 					<div id="hudEvil">
-						<div id="p0portret" class="hudPortret"><img src="<?php echo base_url();?>avatars/jokerPortret.png" height="80" width="60"></div>
+						<div id="p0portret" class="hudPortret"><img id="xPortret" src="<?php echo base_url();?>avatars/jokerPortret.png" height="80" width="60"></div>
 						<div style="clear:both;"></div>
 					</div>
 					<div id="hudGood">

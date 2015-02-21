@@ -28,7 +28,7 @@ game.Initialize = function (gameState)
     if (game.side == "evil")
         $("#doubleAndJokerTickets").css("display","inline"); 
     
-    GetState(game.Update); 
+    game.Update(gameState); 
 }
 
 game.Update = function (gameState) 
@@ -59,20 +59,21 @@ game.DetermineSide = function (gameState)
 game.Victory = function (gameState)
 {
     if (gameState.victory != "none")
-	{
-		if (gameState.victory == "good")
-			game.GoodEnding()();
-		else	
-			game.BadEnding();
-		return true;
-	}
+    {
+        wait = true;
+        
+        if (gameState.victory == "good")
+            game.GoodEnding();
+        else	
+            game.BadEnding();
+        return true;
+    }
 }
 
 game.GoodEnding = function ()
 {
-    $("#jokerHud").attr("src","avatars/jokerAvatarLose.png");
-    $("#map").append('<img id="jokerLose"src="avatars/jokerAvatarLose.png" height=150 width=150  alt="joker" class="avatar" style="">');
-    var node = state.graph.nodes[state.players[0].position];
+    $("#map").append('<img id="jokerLose" src="' + baseUrl + 'avatars/jokerAvatarLose.png" height=150 width=150  alt="joker" class="avatar" style="">');
+    var node = game.graph.nodes[game.players[0].position];
     var x = node.x - $("#jokerLose").width() / 2 - 80;
     var y = node.y - $("#jokerLose").height() / 2;
     $("#jokerLose").css({left:x,top:y});
@@ -80,9 +81,4 @@ game.GoodEnding = function ()
 
 game.BadEnding = function ()
 {
-    $("#map").append('<img id="jokerWin"src="avatars/jokerAvatar.png" height=150 width=150  alt="joker" class="avatar" style="">');
-    var node = state.graph.nodes[state.players[0].position];
-    var x = node.x - $("#jokerWin").width() / 2;
-    var y = node.y - $("#jokerWin").height() / 2;
-    $("#jokerWin").css({left:x,top:y});
 }

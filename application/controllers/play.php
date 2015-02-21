@@ -23,6 +23,7 @@ class play extends CI_Controller {
 
             if ($side == "good")
                 $gameState = $this->gameStateModel->limitDetectiveInformation( $gameState);
+            
             if ($gameState)
             {                    
                 $this->output
@@ -49,7 +50,7 @@ class play extends CI_Controller {
             $this->load->model('gameStateModel');
             $gameState = json_decode($this->gameStateModel->getGameStateById($id, $password));
             
-            if ($this->gameStateModel->moveValid($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket))
+            if ($gameState->victory == "none" && $this->gameStateModel->moveValid($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket))
             {            
                 $gameState = $this->gameStateModel->doMove($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket);
                 $this->gameStateModel->saveGameState($gameState, $id);
@@ -58,6 +59,10 @@ class play extends CI_Controller {
 
             if ($side == "good")
                 $gameState = $this->gameStateModel->limitDetectiveInformation( $gameState);
+            
+            if ($gameState->victory != "none")
+                $this->gameStateModel->deactivateGameState($id);
+            
             if ($gameState)
             {                    
                 $this->output

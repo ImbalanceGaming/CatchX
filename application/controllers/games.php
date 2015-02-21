@@ -67,15 +67,18 @@ class games extends CI_Controller {
         }
         else
         {
+            /*
             $gameNames = $this->gamesModel->getGames();
             $games = array(
                 'gameNames' => $gameNames
-            );
-
+            );          
+            
             $this->load->view("shared/header");
             $this->load->view('games/index', $games);
             $this->load->view("shared/footer");
-            //redirect('/games/hostSucces/', 'refresh');
+             * */
+             
+            redirect('/games/hostSucces/', 'refresh');
         }
     }
 }

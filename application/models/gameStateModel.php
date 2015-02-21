@@ -79,13 +79,14 @@ class gameStateModel extends CI_Model {
     
     function nodeIsEmpty($gameState, $node)
     {
-        foreach ($gameState->players as $player)
+        for ($i = 1; $i < count($gameState->players); $i++)
         {
-            if ($player->position == $node)
+            if ($gameState->players[$i]->position == $node)
             {
                 return false;
             }
         }
+        
         return true;
     }
     
@@ -204,6 +205,12 @@ class gameStateModel extends CI_Model {
     {
         $this->db->where('id', $id);
         $this->db->update('games', ["gameState" => json_encode($gameState)]); 
+    }
+    
+    function deactivateGameState($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('games', ["active" => false]); 
     }
 }
 
