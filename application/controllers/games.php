@@ -56,7 +56,7 @@ class games extends CI_Controller {
     public function host()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('gameName', 'Game name', 'required');
+        $this->form_validation->set_rules('gameName', 'Game name', 'required|callback_gameNameIsUnique');
         $this->form_validation->set_rules('password', 'Password', 'required');
         
         if ($this->form_validation->run() == FALSE)
@@ -67,18 +67,31 @@ class games extends CI_Controller {
         }
         else
         {
-            /*
-            $gameNames = $this->gamesModel->getGames();
-            $games = array(
-                'gameNames' => $gameNames
-            );          
+            $password = $this->input->post('password');
+            $name = $this->input->post('gameName');
+            $id = $this->gamesModel->createGame($name, $password);
             
-            $this->load->view("shared/header");
-            $this->load->view('games/index', $games);
-            $this->load->view("shared/footer");
-             * */
-             
+            $newdata = array(
+                   'id'  => $id,
+                   'password'   => $password
+               );
+            
             redirect('/games/hostSucces/', 'refresh');
+        }
+    }
+    
+    public function gameNameIsUnique($gameName)
+    {
+        $gameNames = $this->gamesModel->getGames();
+        
+        if (in_array($gameName, $gameNames))
+        {
+                $this->form_validation->set_message('gameNameIsUnique', 'Game name already exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
         }
     }
 }

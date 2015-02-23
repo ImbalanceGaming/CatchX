@@ -7,16 +7,21 @@ class GamesModel extends CI_Model {
     {
         $this->load->model('gameStateModel');
         
-        if (!nameExistsAndGameIsActive($name))
+        if (!$this->nameExistsAndGameIsActive($name))
         {
+            $this->load->helper('string');
+            $id = random_string('alnum', 16);
+            
             $data = array(
+                'id' => $id,
             'name' => $name ,
             'password' => $password ,
             'active' => true ,
-            'gameState' => getInitialGameState()
+            'gameState' => $this->gameStateModel->getInitialGameState()
          );
 
-         $this->db->insert('mytable', $data); 
+         $this->db->insert('games', $data); 
+         return $id;
         }
         else
         {

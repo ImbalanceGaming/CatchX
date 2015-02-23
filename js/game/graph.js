@@ -25,9 +25,9 @@ Graph = function(graph)
                 i,
                 graph));
         }
-    }
+    };
     this.Initialize(graph);
-}
+};
 
 Node = function(x, y, adjacentNodes, colors, id)
 {
@@ -41,33 +41,33 @@ Node = function(x, y, adjacentNodes, colors, id)
     this.Highlight = function()
     {
         this.htmlElement.addClass("moveNode");
-    }
+    };
     
     this.RemoveHighlight = function()
     {
         this.htmlElement.removeClass("moveNode");
-    }
+    };
     
     this.Click = function()
     {
         game.selection.SelectNode(this);
-    }
+    };
     
     this.Initialize = function()
     {
         $("#map").append("<div id='node_" + this.id + "' class='node' style='left:" + (this.x - 25) + "px;top:" + (this.y - 25) + "px;' >" + i + "</div>");
         this.htmlElement = $("#node_" + this.id);
-	if (this.colors.indexOf("#325E32") != -1)
+	if (this.colors.indexOf("#325E32") !== -1)
             this.htmlElement.addClass("nodeWithGreenConnection");
-        if (this.colors.indexOf("#C2B615") != -1)
+        if (this.colors.indexOf("#C2B615") !== -1)
             this.htmlElement.addClass("nodeWithYellowConnection");
-        if (this.colors.indexOf("#009C99") != -1)
+        if (this.colors.indexOf("#009C99") !== -1)
             this.htmlElement.addClass("nodeWithBlueConnection");
         
         this.htmlElement.click({node:this.id},function(event){game.graph.nodes[event.data.node].Click();});
-    }
+    };
     this.Initialize();
-}
+};
 
 Edge = function(node1,node2,type,color,id, graph)
 {
@@ -110,6 +110,6 @@ Edge = function(node1,node2,type,color,id, graph)
                 $("svg").append(this.htmlElement);
                 break;
         }
-    }
+    };
     this.Initialize(graph);
-}
+};

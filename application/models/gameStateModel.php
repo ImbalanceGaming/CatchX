@@ -9,7 +9,6 @@ class gameStateModel extends CI_Model {
     
     function getGameState($name, $password)
     {
-        
         $this->db->where('name', $name); 
         $this->db->where('password', $password);
         $this->db->where('active', true); 
