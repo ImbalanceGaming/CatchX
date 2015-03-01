@@ -14,11 +14,11 @@ class GamesModel extends CI_Model {
             
             $data = array(
                 'id' => $id,
-            'name' => $name ,
-            'password' => $password ,
-            'active' => true ,
-            'gameState' => $this->gameStateModel->getInitialGameState()
-         );
+                'name' => $name ,
+                'password' => $password,
+                'active' => true,
+                'gameState' => $this->gameStateModel->getInitialGameState()
+            );
 
          $this->db->insert('games', $data); 
          return $id;
@@ -74,11 +74,10 @@ class GamesModel extends CI_Model {
         return $query->num_rows() == 1;
     }
     
-    function checkDetectivePassword($gameName, $detectivePassword)
+    function getID($gameName, $password)
     {        
-        $query = $this->db->get_where('games', array('name' => $gameName,'xPassword' => $detectivePassword), 1, 0);
-        return $query->num_rows() == 1;
+        $query = $this->db->get_where('games', array('name' => $gameName,'password' => $password), 1, 0);
+        return $query->row()->id;
     }
-
 }
 

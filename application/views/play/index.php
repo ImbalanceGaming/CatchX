@@ -20,6 +20,8 @@
         <script>
             var baseUrl = '<?php echo base_url();?>';
             var side = '<?php echo $side;?>';
+            var id = '<?php echo $id;?>';
+            var password = '<?php echo $password;?>';
         </script>
 </head>
 <body>

@@ -3,10 +3,25 @@
 class play extends CI_Controller {
     public function index($side = "good")
     {
-        $data = array(
-            "side" => $side
-        );
-        $this->load->view("play/index", $data);
+        $id = $this->session->userdata('id');
+        $password = $this->session->userdata('password');
+        $name = $this->session->userdata('password');
+        
+        if ($id != null && $password != null && $name != null)
+        {
+            $data = array(
+                'id' => $id,
+                'password' => $password,
+                'name' => $name,
+                'side' => $side
+            );
+            
+            $this->load->view("play/index", $data);
+        }
+        else
+        {
+            // TODO: Redirect to game not found page;
+        }
     }
 
     public function getState()
