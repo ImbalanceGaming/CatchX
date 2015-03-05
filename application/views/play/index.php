@@ -8,6 +8,7 @@
 	<script src="<?php echo base_url();?>js/jquery.animate-colors-min.js"></script>
 	<script src="<?php echo base_url();?>js/panzoom.js"></script>
 	
+        <script src="<?php echo base_url();?>js/game/powerups.js"></script>
         <script src="<?php echo base_url();?>js/game/selection.js"></script>
 	<script src="<?php echo base_url();?>js/game/graph.js"></script>
 	<script src="<?php echo base_url();?>js/game/player.js"></script>

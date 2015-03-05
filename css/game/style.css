@@ -425,6 +425,7 @@ body
 
 #doubleAndJokerTickets
 {
+    z-index:20;
 	width:100px;
 	display:none;
 	position:fixed;

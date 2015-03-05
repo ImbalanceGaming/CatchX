@@ -56,8 +56,8 @@ class play extends CI_Controller {
         $player = intval($this->input->post('player'));
         $position = intval($this->input->post('position'));
         $destination = intval($this->input->post('destination'));
-        $doubleTicket = $this->input->post('doubleTicket');
-        $hiddenTicket = $this->input->post('hiddenTicket');
+        $doubleTicket = $this->input->post('doubleTicket') === "true";
+        $hiddenTicket = $this->input->post('hiddenTicket') === "true";
         
         if ($password && $id)
         {

@@ -61,8 +61,8 @@ class gameStateModel extends CI_Model {
         if ($this->playerExists($gameState, $player, $position) &&
             $this->nodeIsEmpty($gameState, $destination) &&
             $this->Adjacent($gameState,$position,$destination) &&
-            (($hidden && count($gameState->hiddens) > 0) || !$hidden) &&
-            (($double && count($gameState->doubles) > 0) || !$double))
+            (($hidden && $gameState->hiddens > 0) || !$hidden) &&
+            (($double && $gameState->doubles > 0) || !$double))
         {
             return true;
         }

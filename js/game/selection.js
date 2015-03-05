@@ -5,7 +5,7 @@ Selection = function ()
     
     this.SelectPlayer = function(player)
     {
-        if (this.selectedPlayer != null)
+        if (this.selectedPlayer !== null)
             this.selectedPlayer.RemoveHighlight();
         
         this.selectedPlayer = player;
@@ -20,14 +20,14 @@ Selection = function ()
         this.nodesAdjacentToSelectedPlayer.forEach(function(nodeId){
             game.graph.nodes[nodeId].Highlight();
 	});
-    }
+    };
     
     this.SelectNode = function(node)
     {
-        if(this.selectedPlayer == null || !this.selectedPlayer.turn)
+        if(this.selectedPlayer === null || !this.selectedPlayer.turn)
             return;
         
-        if ((this.nodesAdjacentToSelectedPlayer.indexOf(node.id)) != -1)
+        if ((this.nodesAdjacentToSelectedPlayer.indexOf(node.id)) !== -1)
         {
             this.nodesAdjacentToSelectedPlayer.forEach(function(nodeId){
                 game.graph.nodes[nodeId].RemoveHighlight();
@@ -36,15 +36,23 @@ Selection = function ()
             this.nodesAdjacentToSelectedPlayer = [];
             wait = true;
             
+            var hidden = false;
+            var double = false;
+            if (game.side === "evil")
+            {
+                hidden = game.powerups.UseHidden();
+                double = game.powerups.UseDouble();
+            }
             
-            DoMove(this.selectedPlayer.id, this.selectedPlayer.position, node.id, false, false);
+            DoMove(this.selectedPlayer.id, this.selectedPlayer.position, node.id, double, hidden);
+            game.powerups.Reset();
             this.selectedPlayer.PlayMoveSound();
         }
-    }
+    };
     
     this.DeselectAll = function()
     {
-        if (this.selectedPlayer != null)
+        if (this.selectedPlayer !== null)
             this.selectedPlayer.RemoveHighlight();
         this.selectPlayer = null;
         
@@ -53,8 +61,8 @@ Selection = function ()
 	});
         
         this.nodesAdjacentToSelectedPlayer = [];
-    }
-}
+    };
+};
 
 
 

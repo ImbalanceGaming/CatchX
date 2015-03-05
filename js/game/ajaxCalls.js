@@ -20,7 +20,7 @@ function DoMove(player, position, destination, doubleTicket, hiddenTicket)
       type:'POST',
       dataType: "json",
       url: "http://localhost/catchX/index.php/play/doMove",
-      data: { id: id, password: password, side: side, player: player, position:position , destination:destination, doubleTicked:doubleTicket,hiddenTicked:hiddenTicket},
+      data: { id: id, password: password, side: side, player: player, position:position , destination:destination, doubleTicket:doubleTicket,hiddenTicket:hiddenTicket},
       success: function(data) 
       {
           game.Update(data);

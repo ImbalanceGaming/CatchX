@@ -26,7 +26,7 @@ game.Initialize = function (gameState)
     game.side = game.DetermineSide(gameState);
     log.Create(gameState);
     if (game.side == "evil")
-        $("#doubleAndJokerTickets").css("display","inline"); 
+        game.powerups = new Powerups(gameState);
     
     game.Update(gameState); 
 }
