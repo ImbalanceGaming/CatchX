@@ -6,7 +6,15 @@ and open the template in the editor.
 /* 
     Created on : Jan 8, 2015, 9:36:43 PM
     Author     : Frank
+
+
+    info:
+    Frame 1: enter screen
+    Frame 2: games list
+    Frame 3: join screen
 */
+
+
 
 /* fonts*/
 
@@ -16,62 +24,152 @@ and open the template in the editor.
     src: url(../fonts/maffiaFont.ttf);
 }
 
+#enter
+{
+    display: none;
+}
+
+.frame1 #enter{
+    display:inline;
+}
+
+#hostGame
+{
+    display:none;
+}
+
+.frame2 #hostGame{
+    display:inline;
+}
 
 /* shared */
 
-button
+button,input[type="submit"]
 {
     margin-top:50px;
     width: 700px; 
-    background: linear-gradient(#F6FF00, #A8AD00); 
+    background-color:yellow; 
     font-size: 70px;
+    font-family: mafiaFont;
 }
 
 body{
     background-color:black;
 }
 
-input[type="submit"]
+h1, h2, p
 {
-    width: 200px; 
-    background: linear-gradient(#F6FF00, #A8AD00); 
-    font-size: 40px;
     font-family: mafiaFont;
 }
 
-h1, h2
-{
-    font-family: mafiaFont;
+p{
+    font-size: 
+        40px;
 }
 
 h1
 {
-    font-size:60px;
+    font-size:140px;
 }
 
 h2{
     font-size: 50px;
 }
 
-/* home */
-
-#home
-{
+#container{
     text-align: center;
-    font-family: mafiaFont;
 }
 
-#home h1{
-    font-size: 150px;
-}
+/* home-index */
 
-#homeBannerContainer
-{    
+#header
+{
+    position:relative;
     padding-top:20px;
-    background: linear-gradient(#F6FF00, #A8AD00);
+    transition: height 1s, background-color 1s;
 }
+
+#header img
+{
+    position: absolute;
+    transition: height 1s, left 1s;
+}
+
+#header h1{
+    text-align: center;
+    position:absolute;
+    bottom:0px;
+    left: calc(50% - 330px);
+    transition: color 1s;
+}
+
+/* Header in frame 1 */
+.frame1 #header
+{
+    height: 600px;
+    background-color: yellow;
+}
+
+.frame1 #header img
+{
+    height:400px;
+    left: calc(50% - 200px);
+}
+
+.frame1 #header h1{
+    color:black;
+}
+
+#header
+{
+    height:200px; 
+    background-coior: black;   
+}
+
+#header img
+{
+    height:120px; 
+    left: 10px;
+}
+
+#header h1
+{    
+    color:yellow;
+}
+
+/* /home */
 
 /* games */
+
+#paginateControl span{
+    cursor:pointer;
+}
+
+#games
+{
+    border-width: 0px;
+    border-bottom-width: 5px;
+    border-style: solid;
+    border-color: yellow;
+    overflow:hidden;
+    transition: height 1s;
+}
+
+#games
+{
+    height: 0px;
+}
+
+.frame2 #games
+{
+    height: 700px;
+}
+
+@-webkit-keyframes gamesFrame2Animation {
+	0%   {height:0px;}
+	100% {height:auto;}
+}
+
 
 /* games/shared */
 #gamesIndex, #gamesHost
@@ -84,64 +182,42 @@ h2{
     color:black
 }
 
-/* bootstrap */
-
-.navbar-default {
-	background-color: #000000;
-	border-color: #000000;
-}
-.navbar-default .navbar-brand {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-	color: #ffff00;
-}
-.navbar-default .navbar-text {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-nav > li > a {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-	color: #ffff00;
-}
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	color: #ffff00;
-	background-color: #000000;
-}
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-	color: #ffff00;
-	background-color: #000000;
-}
-.navbar-default .navbar-toggle {
-	border-color: #000000;
-}
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-	background-color: #000000;
-}
-.navbar-default .navbar-toggle .icon-bar {
-	background-color: #ecf0f1;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-	border-color: #ecf0f1;
-}
-.navbar-default .navbar-link {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-link:hover {
-	color: #ffff00;
+.game{
+    text-align: center;
+    border-style: solid; 
+    border-color: yellow; 
+    border-width:0px;
+    border-top-width: 5px;
+    color:yellow;
+    cursor:pointer;
+    transition: border-color 0.5s, background-color 0.5s, color 0.5s;
 }
 
-@media (max-width: 767px) {
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
-		color: #ecf0f1;
-	}
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-		color: #ffff00;
-	}
-	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-		color: #ffff00;
-		background-color: #000000;
-	}
+h1 img{
+    width:120px;
+    vertical-align:baseline;
+}
+
+.game:hover
+{
+    border-color:purple;
+    background-color: yellow;
+    color:purple;
+}
+
+/* Join game */
+#join, #host
+{
+    transition: height 1s;
+    height: 0px;
+    overflow: hidden;
+    border-style: solid; 
+    border-color: yellow; 
+    border-width:0px;
+    border-bottom-width: 5px;
+}
+
+.frame3 #join, .frame4 #host
+{
+    height: 600px;
 }

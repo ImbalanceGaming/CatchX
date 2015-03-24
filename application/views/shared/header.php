@@ -16,6 +16,7 @@
         <script type="text/javascript" src="<?php echo base_url();?>js/bootstrap.min.js" ></script>
 </head>
 <body>
+    <!-- 
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -31,3 +32,4 @@
         </div>
       </div>
     </nav>
+    -->

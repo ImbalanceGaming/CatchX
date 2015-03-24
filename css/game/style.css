@@ -379,7 +379,7 @@ body
 }
 
 .announcementBlink{
-	-webkit-animation-name: announcementBlinkAnimation;
+    -webkit-animation-name: announcementBlinkAnimation;
     -webkit-animation-duration: 2s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
