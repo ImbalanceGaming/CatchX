@@ -2,6 +2,11 @@
 
 class GamesModel extends CI_Model {
 
+    function __construct()
+    {
+        // Call the Model constructor
+        parent::__construct();
+    }
 
     function createGame($name, $password)
     {
@@ -48,12 +53,6 @@ class GamesModel extends CI_Model {
         {
             return false;
         }
-    }
-
-    function __construct()
-    {
-        // Call the Model constructor
-        parent::__construct();
     }
     
     function getGames()

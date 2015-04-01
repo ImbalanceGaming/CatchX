@@ -13,13 +13,13 @@
       </thead>
       <tbody>
         <?php
-            foreach($gameNames as $gameName)
+            foreach($games as $game)
             {
                 ?>
                 <tr>
                     <td>
-                        <a href="<?php echo site_url('/games/join/' . $gameName); ?>">
-                        <?php echo $gameName ?>
+                        <a href="<?php echo site_url('/games/join/' . $game->name); ?>">
+                        <?php echo $game->name ?>
                         </a>
                     </td>
                 </tr
