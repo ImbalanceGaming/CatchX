@@ -1,7 +1,7 @@
 var id = "1";
 var password = "123";
 //var side = "good";
-
+// TODO: Replace url
 function GetState(functionThatDoesSomethingWithState)
 {
     $.ajax({
@@ -14,6 +14,7 @@ function GetState(functionThatDoesSomethingWithState)
     });
 }
 
+// TODO: Replace url
 function DoMove(player, position, destination, doubleTicket, hiddenTicket)
 {
     $.ajax({

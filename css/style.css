@@ -33,16 +33,13 @@ and open the template in the editor.
     display:inline;
 }
 
-#hostGame
-{
-    display:none;
-}
-
-.frame2 #hostGame{
-    display:inline;
-}
-
 /* shared */
+
+.button-small
+{
+    width:300px;
+    font-size: 40px;
+}
 
 button,input[type="submit"]
 {
@@ -162,7 +159,7 @@ h2{
 
 .frame2 #games
 {
-    height: 700px;
+    height: 850px;
 }
 
 @-webkit-keyframes gamesFrame2Animation {
@@ -219,5 +216,11 @@ h1 img{
 
 .frame3 #join, .frame4 #host
 {
-    height: 600px;
+    height: 800px;
+}
+
+/* Host game */
+#hostValidationErrors
+{
+    color:red;
 }

@@ -55,6 +55,33 @@ class games extends CI_Controller {
         }   
     }
     
+    public function JoinAjax()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('gameName', 'Game name', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|checkLogin');
+        $data = new stdClass();
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $data->errors = [validation_errors()];
+            $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        }
+        else
+        {
+            $gameName = $this->input->post('gameName');
+            $password = $this->input->post('password');
+            $data->id = $this->gamesModel->getID($gameName, $password);
+            $data->errors = [];
+            
+            $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        }   
+    }
+    
     public function CheckLogin()
     {
         $username = $this->input->post('username');
@@ -102,6 +129,44 @@ class games extends CI_Controller {
         }
     }
     
+    public function HostAjax()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('gameName', 'Game name', 'required|callback_gameNameIsUnique');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $data = new stdClass();
+            $data->errors = [validation_errors()];
+            
+            $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        }
+        else
+        {
+            $password = $this->input->post('password');
+            $name = $this->input->post('gameName');
+            $id = $this->gamesModel->createGame($name, $password);
+            
+            $newdata = array(
+                'id'  => $id,
+                'password'   => $password,
+                'name' => $name
+            );
+            
+            $this->session->set_userdata($newdata);
+            
+            $data = new stdClass();
+            $data->errors = [];
+            
+            $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        }
+    }
+    
     public function gameNameIsUnique($gameName)
     {
         $gameNames = $this->gamesModel->getGames();
@@ -145,5 +210,12 @@ class games extends CI_Controller {
             echo ($name);
             // TODO: Redirect to game not found page;
         }
+    }
+    
+    public function Gamelist()
+    {        
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($this->gamesModel->getGames()));
     }
 }
