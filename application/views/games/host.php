@@ -1,36 +1,18 @@
-<div class="container" id="gamesHost">
-<h2>Host</h2>
-    <?php 
-    echo validation_errors();
-    echo form_open(); 
-
-    $data = array(
-              'name'        => 'gameName',
-              'id'          => 'name',
-              'value'       => set_value('gameName'),
-              'maxlength'   => '50',
-              'size'        => '50',
-              'style'       => 'width:50%',
-            );
-    echo form_label("Game name:","name");
-    echo ("<br>");
-    echo form_input($data);
-    echo ("<br>");
-
-    $data = array(
-              'name'    => 'password',
-              'id'          => 'password',
-              'value'       => set_value('password'),
-              'maxlength'   => '50',
-              'size'        => '50',
-              'style'       => 'width:50%',
-            );
-    echo form_label("Password:","password");
-    echo ("<br>");
-    echo form_password($data);
-    echo ("<br><br>");
-    echo form_submit('host', 'Host game');
-
-  ?>
-</div>
+    <!-- Frame 4: host -->
+    <div id="host" class="row">    
+        <p>
+            <img style="margin-right:110px;"  src=" <?php echo base_url(); ?>avatars/pawnJoker.png" height=150 width=150  class="avatar pion"/>
+            <img  src=" <?php echo base_url(); ?>avatars/pawnBatman.png" height=150 width=150  class="avatar pion"/>
+            <img  src=" <?php echo base_url(); ?>avatars/pawnRobin.png" height=150 width=150  class="avatar pion"/>
+            <img  src=" <?php echo base_url(); ?>avatars/pawnGordon.png" height=150 width=150  class="avatar pion"/>
+            <img  src=" <?php echo base_url(); ?>avatars/pawnCatwoman.png" height=150 width=150  class="avatar pion"/>
+        </p>
+        
+        <p>Map: Gotham</p>
+        <div id="hostValidationErrors"></div>
+        <p><input id="hostGameName" type="text" name="gameName" placeholder="Game name"> <input id="hostPassword" type="password" name="password" placeholder="password"></p>
+        <button onclick="Host()">Host game</button><br>
+        <button onclick="ChangeFrame(2)" class="button-small" >Go back</button>
+    </div>
+    <!-- /frame4 -->
 

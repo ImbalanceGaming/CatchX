@@ -68,7 +68,7 @@ function Host()
     $.ajax({
       type:'POST',
       dataType: "json",
-      url: baseUrl + "index.php/games/HostAjax",
+      url: baseUrl + "index.php/games/Host",
       data: { gameName: gameName, password: password},
       success: function(data) 
       {
@@ -94,7 +94,7 @@ function Join()
     $.ajax({
       type:'POST',
       dataType: "json",
-      url: baseUrl + "index.php/games/JoinAjax",
+      url: baseUrl + "index.php/games/Join",
       data: { gameName: gameName, password: password},
       success: function(data) 
       {
@@ -102,9 +102,9 @@ function Join()
               $("#joinValidationErrors").html(data.errors[0]);
           else
           {
-              document.cookie="name=" + gameName;
-              document.cookie="password=" + password;
-              document.cookie="id=" + data.id;
+              $.cookie('name', gameName);
+              $.cookie('password', password);
+              $.cookie('id', data.id);
               window.location.href = baseUrl + "index.php/play";
           }
       }

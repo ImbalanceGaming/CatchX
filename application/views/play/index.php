@@ -7,7 +7,7 @@
 	<script src="<?php echo base_url();?>js/jquery-2.1.3.min.js"></script>
 	<script src="<?php echo base_url();?>js/jquery.animate-colors-min.js"></script>
 	<script src="<?php echo base_url();?>js/panzoom.js"></script>
-	
+	<script type="text/javascript" src="<?php echo base_url();?>js/jquery.cookie.js" ></script>
         <script src="<?php echo base_url();?>js/game/powerups.js"></script>
         <script src="<?php echo base_url();?>js/game/selection.js"></script>
 	<script src="<?php echo base_url();?>js/game/graph.js"></script>
@@ -20,9 +20,9 @@
         <script src="<?php echo base_url();?>js/game/turnSign.js"></script>
         <script>
             var baseUrl = '<?php echo base_url();?>';
-            var side = '<?php echo $side;?>';
-            var id = '<?php echo $id;?>';
-            var password = '<?php echo $password;?>';
+            var side = $.cookie('side');;
+            var id = $.cookie('id');
+            var password = $.cookie('password');
         </script>
 </head>
 <body>

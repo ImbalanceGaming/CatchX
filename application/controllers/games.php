@@ -7,59 +7,18 @@ class games extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->model('gamesModel');
-    }
-    
-    public function index()
-    {
-        $gameNames = $this->gamesModel->getGames();
-        $data = array(
-            'gameNames' => $gameNames
-        );
-        
-        $this->load->view("shared/header");
-        $this->load->view('games/index', $data);
-        $this->load->view("shared/footer");
-    }
-    
-    public function join($name)
-    {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('gameName', 'Game name', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required|checkLogin');
-        
-        if ($this->form_validation->run() == FALSE)
-        {
-            $data = array
-            (
-                'gameName'=>$name
-            );
-
-            $this->load->view("shared/header");
-            $this->load->view("games/join", $data);
-            $this->load->view("shared/footer");
-        }
-        else
-        {
-            $password = $this->input->post('password');
-            $id = $this->gamesModel->getID($name, $password);
-            
-            $newdata = array(
-                'id'  => $id,
-                'password'   => $password,
-                'name' => $name
-            );
-            
-            $this->session->set_userdata($newdata);
-            
-            redirect('/games/game/', 'refresh');
-        }   
+        $this->form_validation->set_error_delimiters('', '');
     }
     
-    public function JoinAjax()
+    public function Join()
     {
-        $this->load->library('form_validation');
+        $gameName = $this->input->post('gameName');
+        $password = $this->input->post('password');
+        
+        
         $this->form_validation->set_rules('gameName', 'Game name', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required|checkLogin');
+        $this->form_validation->set_rules('password', 'Password', 'required|callback_checkLogin');
         $data = new stdClass();
         
         if ($this->form_validation->run() == FALSE)
@@ -82,9 +41,9 @@ class games extends CI_Controller {
         }   
     }
     
-    public function CheckLogin()
+    public function checkLogin($str)
     {
-        $username = $this->input->post('username');
+        $gameName = $this->input->post('gameName');
         $password = $this->input->post('password');
         
         if ($this->gamesModel->checkPassword($gameName, $password))
@@ -93,53 +52,20 @@ class games extends CI_Controller {
         }
         else
         {
-            $this->form_validation->set_message('CheckLogin', 'Game name or password is invalid');
+            $this->form_validation->set_message('checkLogin', 'Game name or password is invalid');
             return False;
         }     
     }
-
     
-    public function host()
+    public function Host()
     {
-        $this->load->library('form_validation');
         $this->form_validation->set_rules('gameName', 'Game name', 'required|callback_gameNameIsUnique');
         $this->form_validation->set_rules('password', 'Password', 'required');
+        $data = new stdClass();
         
         if ($this->form_validation->run() == FALSE)
         {
-            $this->load->view("shared/header");
-            $this->load->view('games/host');
-            $this->load->view("shared/footer");
-        }
-        else
-        {
-            $password = $this->input->post('password');
-            $name = $this->input->post('gameName');
-            $id = $this->gamesModel->createGame($name, $password);
-            
-            $newdata = array(
-                'id'  => $id,
-                'password'   => $password,
-                'name' => $name
-            );
-            
-            $this->session->set_userdata($newdata);
-            
-            redirect('/games/game/', 'refresh');
-        }
-    }
-    
-    public function HostAjax()
-    {
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('gameName', 'Game name', 'required|callback_gameNameIsUnique');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        
-        if ($this->form_validation->run() == FALSE)
-        {
-            $data = new stdClass();
-            $data->errors = [validation_errors()];
-            
+            $data->errors = [validation_errors()];            
             $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($data));
@@ -149,18 +75,7 @@ class games extends CI_Controller {
             $password = $this->input->post('password');
             $name = $this->input->post('gameName');
             $id = $this->gamesModel->createGame($name, $password);
-            
-            $newdata = array(
-                'id'  => $id,
-                'password'   => $password,
-                'name' => $name
-            );
-            
-            $this->session->set_userdata($newdata);
-            
-            $data = new stdClass();
-            $data->errors = [];
-            
+            $data->errors = [];            
             $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($data));
@@ -182,37 +97,7 @@ class games extends CI_Controller {
         }
     }
     
-    public function game()
-    {
-        $id = $this->session->userdata('id');
-        $password = $this->session->userdata('password');
-        $name = $this->session->userdata('name');
-        
-        if ($id != null && $password != null && $name != null)
-        {
-            $data = array(
-                'id' => $id,
-                'password' => $password,
-                'name' => $name
-            );
-            
-            $this->load->view("shared/header");
-            $this->load->view("games/game", $data);
-            $this->load->view("shared/footer");
-        }
-        else
-        {
-            
-            echo ($id);
-            echo "<br/>";
-            echo ($password);
-            echo "<br/>";
-            echo ($name);
-            // TODO: Redirect to game not found page;
-        }
-    }
-    
-    public function Gamelist()
+    public function GameList()
     {        
         $this->output
             ->set_content_type('application/json')

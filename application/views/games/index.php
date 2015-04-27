@@ -1,25 +1,11 @@
-<?php
-
-?>
-
-<div class="container-fluid" id="gamesIndex" style="text-align:center; ">
-    <h1> <?php echo img('images/homeBanner.png');?> Games</h1>
-    
-    
-    <?php
-            foreach($gameNames as $gameName)
-            {
-                ?>
-                <a href="<?php echo site_url('/games/join/' . $gameName); ?>">
-                        
-                <div class="col-sm-12 game" style="">
-                    <p><?php echo $gameName ?></p>
-                </div>
-                </a>
-                <?php 
-            }
-        ?>
-    <form action="<?php echo site_url('/games/host'); ?>">
-        <input type="submit" value="Host game" style="">
-    </form>
-</div>
+    <!-- Frame 2: games list -->
+    <div class="row" id="games">
+        <p style="color:purple;">Select a game to join</p>        
+        <div id="gamesList"></div>
+        <div id="paginateControl" class="row" style="font-size: 200%; color:purple; padding-top: 20px; margin-bottom: 20px;border-width: 0px; border-top-width: 5px; border-style: solid; border-color: yellow;"></div>
+        <div id="hostGame" class="row" style="text-align: center;">
+            <button onclick="GetGames()" class="button-small">Refresh</button><br>
+            <button onclick="ChangeFrame(4)">Host game</button>
+        </div>
+    </div>
+    <!-- frame2 -->
