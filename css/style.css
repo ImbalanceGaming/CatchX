@@ -1,226 +1,110 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Jan 8, 2015, 9:36:43 PM
-    Author     : Frank
+.currentTime
+{
+	background-color: rgb(223, 255, 216);
+}
+
+/* Shared */
+
+body{
+		overflow-y: scroll;
+}
+
+.fade.ng-enter {
+	-webkit-transition: 0.2s linear all; 
+	transition: 0,2s linear all;
+	opacity: 0;
+    transition-delay: 0.2s;
+	-webkit-transition-delay: 0.2s;
+}
+
+.fade.ng-enter-active
+{
+	opacity:1;
+}
 
 
-    info:
-    Frame 1: enter screen
-    Frame 2: games list
-    Frame 3: join screen
-*/
+.fade.ng-leave {
+	-webkit-transition: 0.2s linear all; 
+	transition: 0,2s linear all;
+	opacity: 1;
+}
 
+.fade.ng-leave.ng-leave-active {
+  opacity: 0;
+}
 
-
-/* fonts*/
-
+.fade{
+	opacity:1;
+}
 
 @font-face {
-    font-family: mafiaFont;
+    font-family: maffiaFont;
     src: url(../fonts/maffiaFont.ttf);
 }
 
-#enter
+body
 {
-    display: none;
+	background-color:black;
+	color:yellow;
 }
 
-.frame1 #enter{
-    display:inline;
-}
-
-/* shared */
-
-.button-small
+button
 {
-    width:300px;
-    font-size: 40px;
+	color:black;
+	background-color:yellow;
 }
 
-button,input[type="submit"]
+input
 {
-    margin-top:50px;
-    width: 700px; 
-    background-color:yellow; 
-    font-size: 70px;
-    font-family: mafiaFont;
+	color:black;
 }
 
-body{
-    background-color:black;
-}
-
-h1, h2, p
+h1, h2, h3, #navbarTitle
 {
-    font-family: mafiaFont;
-}
-
-p{
-    font-size: 
-        40px;
+	font-family:maffiaFont;
 }
 
 h1
 {
-    font-size:140px;
+	font-size:50px;
 }
 
-h2{
-    font-size: 50px;
+a{
+	color:purple;
 }
 
-#container{
-    text-align: center;
-}
-
-/* home-index */
-
-#header
+/* Navbar */
+#navbarTitle
 {
-    position:relative;
-    padding-top:20px;
-    transition: height 1s, background-color 1s;
+	font-size:60px;
 }
 
-#header img
+/* gamesList */
+
+/* join */
+#join h1
 {
-    position: absolute;
-    transition: height 1s, left 1s;
+	font-size:100px;
 }
 
-#header h1{
-    text-align: center;
-    position:absolute;
-    bottom:0px;
-    left: calc(50% - 330px);
-    transition: color 1s;
-}
-
-/* Header in frame 1 */
-.frame1 #header
+.vs
 {
-    height: 600px;
-    background-color: yellow;
+	font-family: maffiaFont;
+	font-size:50px;
+	margin-left:20px;
+	margin-right:20px;
 }
 
-.frame1 #header img
+/* home */
+#home .header
 {
-    height:400px;
-    left: calc(50% - 200px);
+	background-color:yellow;
+	color:black;
+	text-align:center;
+	padding:40px;
+	margin-bottom:30px;
 }
 
-.frame1 #header h1{
-    color:black;
-}
-
-#header
-{
-    height:200px; 
-    background-coior: black;   
-}
-
-#header img
-{
-    height:120px; 
-    left: 10px;
-}
-
-#header h1
-{    
-    color:yellow;
-}
-
-/* /home */
-
-/* games */
-
-#paginateControl span{
-    cursor:pointer;
-}
-
-#games
-{
-    border-width: 0px;
-    border-bottom-width: 5px;
-    border-style: solid;
-    border-color: yellow;
-    overflow:hidden;
-    transition: height 1s;
-}
-
-#games
-{
-    height: 0px;
-}
-
-.frame2 #games
-{
-    height: 850px;
-}
-
-@-webkit-keyframes gamesFrame2Animation {
-	0%   {height:0px;}
-	100% {height:auto;}
-}
-
-
-/* games/shared */
-#gamesIndex, #gamesHost
-{
-    color:yellow;    
-}
-
-#gamesIndex input, #gamesHost input
-{
-    color:black
-}
-
-.game{
-    text-align: center;
-    border-style: solid; 
-    border-color: yellow; 
-    border-width:0px;
-    border-top-width: 5px;
-    color:yellow;
-    cursor:pointer;
-    transition: border-color 0.5s, background-color 0.5s, color 0.5s;
-}
-
-h1 img{
-    width:120px;
-    vertical-align:baseline;
-}
-
-.game:hover
-{
-    border-color:purple;
-    background-color: yellow;
-    color:purple;
-}
-
-/* Join game */
-#join, #host
-{
-    transition: height 1s;
-    height: 0px;
-    overflow: hidden;
-    border-style: solid; 
-    border-color: yellow; 
-    border-width:0px;
-    border-bottom-width: 5px;
-}
-
-.frame3 #join, .frame4 #host
-{
-    height: 800px;
-}
-
-/* Host game */
-#hostValidationErrors
-{
-    color:red;
+#home h1{
+	font-size:100px;
 }
