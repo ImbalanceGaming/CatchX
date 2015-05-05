@@ -7,7 +7,7 @@
 	<script src="../js/constants.js"></script>
 	<script src="js/jquery-2.1.3.min.js"></script>
 	<script src="js/jquery.animate-colors-min.js"></script>
-	<script src="js/panzoom.js"></script>
+	<script src="js/jquery.panzoom.js"></script>
 	<script src="js/jquery.cookie.js" ></script>
 	<script src="js/game/powerups.js"></script>
 	<script src="js/game/selection.js"></script>
@@ -28,54 +28,51 @@
 <body>
 	<audio preload="auto" autobuffer id="audioPlayer"> 
 	  <source src="audio/Batman/BatmanMove1.wav" />
-	</audio>
-	<div id="outer">
-		
-		<div id="hud">
-			<div id="topHudElement">
-				<div id="innerHud">
-					<div id="hudEvil">
-						<div id="p0portret" class="hudPortret"><img id="xPortret" src="avatars/jokerPortret.png" height="80" width="60"></div>
-						<div style="clear:both;"></div>
-					</div>
-					<div id="hudGood">
-						<div id="p1portret" class="hudPortret"><img src="avatars/batmanPortret.png" height="80" width="60"></div>
-						<div id="p2portret" class="hudPortret"><img src="avatars/robinPortret.png" height="80" width="60"></div>
-						<div id="p3portret" class="hudPortret"><img src="avatars/gordonPortret.png" height="80" width="60"></div>
-						<div id="p4portret" class="hudPortret"><img src="avatars/catwomanPortret.png" height="80" width="60"></div>
-						
-						<div style="clear:both;"></div>
-					</div>
+	</audio>		
+	<div id="hud">
+		<div id="topHudElement">
+			<div id="innerHud">
+				<div id="hudEvil">
+					<div id="p0portret" class="hudPortret"><img id="xPortret" src="avatars/jokerPortret.png" height="80" width="60"></div>
+					<div style="clear:both;"></div>
+				</div>
+				<div id="hudGood">
+					<div id="p1portret" class="hudPortret"><img src="avatars/batmanPortret.png" height="80" width="60"></div>
+					<div id="p2portret" class="hudPortret"><img src="avatars/robinPortret.png" height="80" width="60"></div>
+					<div id="p3portret" class="hudPortret"><img src="avatars/gordonPortret.png" height="80" width="60"></div>
+					<div id="p4portret" class="hudPortret"><img src="avatars/catwomanPortret.png" height="80" width="60"></div>
 					
 					<div style="clear:both;"></div>
-					
-					
 				</div>
+				
+				<div style="clear:both;"></div>
+				
+				
 			</div>
 		</div>
-		
-		<div id="map">
-			<svg width="4357" height="6581">
-			</svg>
-		</div>
-		<div id="logOuter">
-			<div id="log">			
-				<div id="logInner">				
-					<div class="hudBlock" style="color:white; background-color:purple;">?</div>				
-				</div>			
-			</div>
-		</div>
-		<div id="bottomHudElement">
-			<div id="bottomHudElementInner">
+	</div>
+	
+	<div id="map">
+		<svg width="4357" height="6581">
+		</svg>
+	</div>
+	<div id="logOuter">
+		<div id="log">			
+			<div id="logInner">				
+				<div class="hudBlock" style="color:white; background-color:purple;">?</div>				
 			</div>			
 		</div>
-		<div id="doubleAndJokerTickets">
-			<input id="doubleCheckbox" type="checkbox" >
-			<label for="doubleCheckbox" class="css-label">double x</label><span id="doubleTicketsValue"></span>
-			<br>
-			<input id="hiddenCheckbox" type="checkbox" >
-			<label for="hiddenCheckbox" class="css-label">hidden x</label><span id="hiddenTicketsValue"></span>
-		</div>
+	</div>
+	<div id="bottomHudElement">
+		<div id="bottomHudElementInner">
+		</div>			
+	</div>
+	<div id="doubleAndJokerTickets">
+		<input id="doubleCheckbox" type="checkbox" >
+		<label for="doubleCheckbox" class="css-label">double x</label><span id="doubleTicketsValue"></span>
+		<br>
+		<input id="hiddenCheckbox" type="checkbox" >
+		<label for="hiddenCheckbox" class="css-label">hidden x</label><span id="hiddenTicketsValue"></span>
 	</div>
 	
 	

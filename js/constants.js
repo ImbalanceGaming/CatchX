@@ -1,3 +1,3 @@
 
-var baseUrl = "http://www.websiteplekje.com/CatchX/"
+var baseUrl = "http://localhost/CatchX/"
 var backendUrl = baseUrl + "api/index.php/"
