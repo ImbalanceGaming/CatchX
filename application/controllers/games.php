@@ -12,7 +12,11 @@ class games extends CI_Controller {
     public function index()
     {
 
-        $this->createGraphs();
+        $graph = $this->createGraphs('Batman');
+
+        if (!$graph['complete']) {
+            die(var_dump($graph['error']));
+        }
 
         $games = Model\Games::all();
 
@@ -25,7 +29,7 @@ class games extends CI_Controller {
         $this->load->view("shared/footer");
     }
 
-    public function createGraphs() {
+    public function createGraphs($graphName, $baseTemplate = null) {
 
         $baseTemplate = '
             {
@@ -39,7 +43,10 @@ class games extends CI_Controller {
                 ],
                 "graph":{
                     "nodes":[
-                        {"x":1860,"y":1340,"adjacent":[1,2,5,7,8,27],"colors":["#000099","#000099","#000099","#000099","#325E32","#325E32"]},
+                        {
+                            "x":1860,"y":1340,"adjacent":[1,2,5,7,8,27],
+                            "colors":["#000099","#000099","#000099","#000099","#325E32","#325E32"]
+                        },
                         {"x":2095,"y":1430,"adjacent":[0,3,10,8],"colors":["#000099","#000099","#000099","#000099"]},
                         {"x":1770,"y":1570,"adjacent":[0,3,4,27,25,44],"colors":["#000099","#000099","#000099","#000099","#C2B615","#C2B615"]},
                         {"x":2000,"y":1655,"adjacent":[1,2,9,26],"colors":["#000099","#000099","#000099","#000099"]},
@@ -65,6 +72,73 @@ class games extends CI_Controller {
                 "turnSide":"good"}';
 
         $data = json_decode($baseTemplate);
+
+        $nodes = $data->graph->nodes;
+
+        $nodeCount = count($nodes);
+
+        $graphObject = Model\Graphs::limit(1)->find_by_name($graphName);
+
+        if (!empty($graphObject)) {
+            return array(
+                'complete'=>false,
+                'error'=>'Error - Graph already exists.'
+            );
+        }
+
+        $graphObject = new Model\Graphs();
+        $graphObject->no_of_nodes = $nodeCount;
+        $graphObject->name = $graphName;
+        $graphObject->save();
+        $graphObject->id = Model\Graphs::last_created()->id;
+
+        foreach ($nodes as $key=>$node) {
+            foreach ($node->colors as $key2=>$color) {
+                $colorObject = Model\Colors::limit(1)->find_by_hex_value($color);
+
+                if (empty($colorObject)) {
+                    /** @var  $colorObject */
+                    $colorObject = new Model\Colors();
+                    $colorObject->name = '';
+                    $colorObject->hex_value = $color;
+                    $colorObject->save();
+
+                    $node->colors[$key2] = array(
+                        'hexCode'=>$color,
+                        'dbId'=>Model\Colors::last_created()->id
+                    );
+                } else {
+                    $node->colors[$key2] = array(
+                        'hexCode'=>$color,
+                        'dbId'=>$colorObject[0]->id
+                    );
+                }
+            }
+
+            $nodeObject = new Model\Nodes();
+            $nodeObject->graph_id = $graphObject->id;
+            $nodeObject->x = $node->x;
+            $nodeObject->y = $node->y;
+            $nodeObject->save();
+
+            $nodes[$key]->dbId = Model\Nodes::last_created()->id;
+        }
+
+        foreach ($nodes as $key=>$node) {
+            $linkCount = 0;
+            foreach ($node->adjacent as $key2=>$nodeLink) {
+                $linkObject = new Model\NodeLinks();
+                $linkObject->node_id = $node->dbId;
+                $linkObject->linked_node_id = $nodes[$nodeLink]->dbId;
+                $linkObject->color_id = $node->colors[$linkCount]['dbId'];
+                $linkObject->save();
+                $linkCount++;
+            }
+        }
+
+        return array(
+            'complete'=>true
+        );
 
     }
     

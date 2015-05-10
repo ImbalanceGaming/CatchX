@@ -21,8 +21,7 @@ class Nodes extends ORM {
 			'id' => ORM::field('auto[11]'),
 			'graph_id' => ORM::field('int[11]'),
 			'x' => ORM::field('int[11]'),
-			'y' => ORM::field('int[11]'),
-			'color_ids' => ORM::field('char[500]'),
+			'y' => ORM::field('int[11]')
 		);
 
 	}

@@ -9,7 +9,7 @@ class NodeLinks extends ORM {
 
     public $table = 'node_links';
 	
-	public $primary_key = 'node_id';
+	public $primary_key = 'id';
 
 	function _init()
 	{
@@ -20,6 +20,7 @@ class NodeLinks extends ORM {
         );
 
 		self::$fields = array(
+            'id' => ORM::field('int[11]'),
 			'node_id' => ORM::field('int[11]'),
 			'linked_node_id' => ORM::field('int[11]'),
 			'color_id' => ORM::field('int[11]'),
