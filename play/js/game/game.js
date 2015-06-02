@@ -33,7 +33,6 @@ game.Initialize = function (gameState)
 
 game.Update = function (gameState) 
 {    
-    turnSign.Update(gameState);
     for (i = 0; i < game.players.length; i++) { 
         game.players[i].Update(gameState);
     }

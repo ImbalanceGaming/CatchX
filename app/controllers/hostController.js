@@ -4,6 +4,7 @@ function hostController ($scope, $http)
 	$scope.gameName = "";
 	$scope.password = "";
 	$scope.errors = [];
+	$scope.side = "MrX";
 	$scope.Host = function() 
 	{ 
 		$http({
@@ -19,7 +20,11 @@ function hostController ($scope, $http)
 			}
 			else
 			{
-				window.location.href = baseUrl + "#/join/" + $scope.gameName;
+				$.cookie('name', $scope.gameName);
+				$.cookie('password', $scope.password);
+				$.cookie('id', data.id);
+				$.cookie('side', $scope.side);
+				window.location.href = baseUrl + "play";		
 			}
 		})
 	};

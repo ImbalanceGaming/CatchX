@@ -95,6 +95,53 @@ a{
 	margin-right:20px;
 }
 
+#gamesList tbody tr{
+	transition: background-color 0.5s, color 0.5s;
+}
+
+#gamesList tbody tr:hover{
+	background-color:yellow;
+	color:purple;
+}
+
+#gameList img{
+	vertical-align: text-top;
+}
+
+.bigImage, .smallImage{
+	height:170px;
+}
+
+#gamesList br
+{
+	display:none;
+}
+
+@media screen and (max-width: 1200px) {
+	
+	.bigImage, .smallImage{
+		height:95px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	#gamesList br
+	{
+		display:inline;
+	}
+	
+	.bigImage{
+		height:80px;
+	}
+
+	.smallImage{
+		height:40px;
+	}
+}
+
+
+/* /join */
+
 /* home */
 #home .header
 {
@@ -107,4 +154,16 @@ a{
 
 #home h1{
 	font-size:100px;
+}
+
+@media screen and (max-width: 500px) {
+	#home img
+	{
+		display:none;
+	}
+
+	#home .container
+	{
+		margin:10px;
+	}
 }

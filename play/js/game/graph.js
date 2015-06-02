@@ -65,6 +65,7 @@ Node = function(x, y, adjacentNodes, colors, id)
             this.htmlElement.addClass("nodeWithBlueConnection");
         
         this.htmlElement.click({node:this.id},function(event){game.graph.nodes[event.data.node].Click();});
+		this.htmlElement.on("click touchstart", {node:this.id}, function(event){game.graph.nodes[event.data.node].Click();});
     };
     this.Initialize();
 };

@@ -12,12 +12,18 @@ body
 	position:absolute;
 }
 
+.ui-page{
+	overflow:visible !important;
+}
+
 #map
 {
 	width:4357px;
 	height:6581px;
-	background-image:url("../maps/gotham.png");
+
+	background-image:url("../maps/gotham.jpeg");
 	position:relative;
+	transform-origin: 0% 0%;
 }
 
 .node
@@ -57,17 +63,83 @@ body
 	position:absolute;
 }
 
-#hud
+/* Hud */
+
+#hudPortraits
 {
 	position:fixed;
 	height:100%;
-	/* background-color:gray; */
-	width:100%;
-	pointer-events:none;
-	z-index:2;
-    /* border-bottom: 1px solid #1A1A1A; */
+	right:0px;
+	top:0px;
+	box-sizing: border-box;
+	
+	background-color:#010132;
+	box-shadow: -3px 3px 3px #888888;
+	padding-left:2%;
+	background-image:url(../images/UIpattern.png);
 }
 
+.hudPortrait{
+	height:20%;
+	box-sizing: border-box;
+}
+
+.hudPortrait img{
+	border-width:5px;
+	border-style:solid;
+	border-color:rgba(0,0,0,0);
+	height:100%;
+	box-sizing: border-box;	
+}
+
+.blinking
+{
+	-webkit-animation-name: blink;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+	
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+}
+
+@-webkit-keyframes blink {
+    0%   {border-color:rgba(0,0,0,0);}
+	10%  {border-color:rgba(0,0,0,0)}
+    100% {border-color:rgba(255,255,0,1);}
+}
+
+@keyframes blink {
+	0%   {border-color:rgba(0,0,0,0);}
+	10%  {border-color:rgba(0,0,0,0.0);}
+    100% {border-color:rgba(255,255,0,1);}
+}
+
+#log{
+	position:fixed;
+	left:0px;
+	top:0px;
+	box-sizing: border-box;
+	background-color:#010132;
+	box-shadow: 3px 3px 3px #888888;
+	padding-right:2%;
+	background-image:url(../images/UIpattern.png);
+	height:100%;
+}
+
+#logInner{
+	height:3000px;
+	background-color:gray;
+	padding:10px;
+}
+
+/*
 #logOuter
 {
 	position:fixed;
@@ -88,53 +160,25 @@ body
 	overflow:hidden;
 }
 
-#bottomHudElement
-{
-	position:fixed;
-	width:450px;
-	height:100px;
-	background-image:url(../images/UIpattern.png);
-	bottom:0%;
-	right:50%;
-	left:50%;
-	transform: translate(-50%, 0);
-	box-shadow: -3px -3px 3px #888888, 3px -3px 3px #888888;
-	border-top-left-radius:10px;
-	border-top-right-radius:10px;
-}
-
-#bottomHudElementInner
-{
-	margin:auto;
-	width:350px;
-	height:50px;
-	background-color:black;
-	margin-top:25px;
-	border-style: inset;
-	color:white;
-	text-align:center;
-	line-height: 50px;
-}
-
-
-
 #logInner
 {
 	width:40px;
 	padding:5px;
 	height:2000px;
 }
+*/
 
 .hudBlock, .hudCircle
 {
 	border-style:solid;
 	border-width:5px;
 	border-color:black;
-	width:40px;
-	height:40px;
+	width:100px;
+	height:100px;
 	background-color:white;
 	color:rgba(0,0,0,0);
-	font-size: 210%;
+	line-height: 100px;
+	font-size:60px;
 	font-weight: bold;
 	text-align:center;
 }
@@ -142,8 +186,8 @@ body
 .hudConnection
 {
 	height:10px;
-	width:6px;
-	margin-left:16px;
+	width:20px;
+	margin-left:40px;
 	background-color:white;;
 	border-style:solid;
 	border-width:0px;
@@ -155,100 +199,6 @@ body
 .hudCircle
 {
 	border-radius:50%;
-}
-
-#topHudElement
-{
-	margin:auto;
-	width:450px;
-	height:125px;
-	background-image:url(../images/UIpattern.png);
-	border-bottom-right-radius:10px;
-	border-bottom-left-radius:10px;
-	box-shadow: 3px 3px 3px #888888, -3px 3px 3px #888888;
-}
-
-#innerHud
-{
-	margin:auto;
-	margin-top:0px;
-	width:400px;
-	height:100px;
-	background-color:red;
-}
-
-#hudGood
-{
-	float:left;
-	height:100%;
-	width:320px;
-	background-color:#010132;
-	padding:auto;
-	border-color:#010132;
-}
-
-.hudPortret
-{
-	margin:5px;
-	height:80px;
-	width:60px;
-	background-color:olive;
-	border-style:solid;
-	border-width:5px;
-	border-color:yellow;
-	float:left;
-	border-color:inherit;
-	
-	-webkit-animation-name: blink;
-    -webkit-animation-duration: 3s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-play-state: running;
-	
-    animation-name: blink;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-play-state: running;
-	
-	
-	
-}
-
-#hudEvil
-{
-	float:left;
-	height:100%;
-	width:80px;
-	background-color:#84047A;
-	border-color:#84047A;
-}
-
-#jokerHud
-{
-	z-index:3;
-	position:absolute;
-}
-
-#cardBack
-{
-	position:absolute;
-	left:40px;
-	top:70px;
-	z-index:2;
-}
-
-.jokerCard
-{
-	position:absolute;
-	left:40px;
-	top:70px;
-	z-index:1;
-	border-style: solid;
-    border-width: 0px;
-	border-bottom-width:1px;
 }
 
 #hudNumbers
@@ -277,18 +227,7 @@ body
 	z-index:10;
 }
 
-@-webkit-keyframes blink {
-    0%   {border-color:rgba(255,255,0,1);}
-	50%  {border-color:inherit;}
-    100% {border-color:rgba(255,255,0,1);}
-}
 
-/* Standard syntax */
-@keyframes blink {
-	0%   {border-color:rgba(255,255,0,1);}
-	50%  {border-color:rgba(255,255,0,0.1);}
-    100% {border-color:rgba(255,255,0,1);}
-}
 
 @-webkit-keyframes hoverPion {
 	0%   {-webkit-transform: scale(1,1);}

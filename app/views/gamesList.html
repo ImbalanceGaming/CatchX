@@ -1,10 +1,10 @@
 	<div class="container" id="gamesList">
 		<h1>Games</h1>
 		</br>
+		
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Join</th>
 						<th>Name</th>
 						<th>Mr.X</th>
 						<th>Detectives</th>
@@ -12,17 +12,21 @@
 					</tr>
 				</thead>
 			<tbody>	
-			<tr data-ng-repeat="input in games | startFrom:currentPage*pageSize | limitTo:pageSize">
-				<td><a href="#/join/{{ input }}">Join</a></td>
-				<td> {{ input }} </td>
-				<td>joker <img src="images/jokerPortret.png" height="40px"></td>
-				<td>
-					batman <img src="images/batmanPortret.png" height="40px">,
-					robin <img src="images/robinPortret.png" height="40px">,
-					catwoman <img src="images/catwomanPortret.png" height="40px">,
-					gordon <img src="images/gordonPortret.png" height="40px"></td>
-				<td>gotham <img src="images/gotham.png" height="40px"></td>
-			</tr>			
+				<tr data-ng-repeat="input in games | startFrom:currentPage*pageSize | limitTo:pageSize" such-href="join/{{ input }}">
+					<td> {{ input }} </td>
+					<td>
+						<img src="images/jokerPortret.png" class="bigImage">
+					</td>
+					<td>
+						<img src="images/batmanPortret.png" class="smallImage">
+						<img src="images/robinPortret.png" class="smallImage"><br>
+						<img src="images/catwomanPortret.png" class="smallImage">
+						<img src="images/gordonPortret.png" class="smallImage">
+					</td>
+					<td>
+						<img src="images/gotham.jpeg" class="bigImage">
+					</td>
+				</tr>	
 			</tbody>
 			</table>
 			<div class="controls">

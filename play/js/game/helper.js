@@ -8,3 +8,16 @@ function getQueryVariable(variable)
        }
        return(false);
 }
+
+Helper = function()
+{
+	this.Pan = function(x,y)
+	{
+		var scale = $('#map').panzoom("getMatrix")[0];
+		var mapDim = {'width':$('#map').width(),'height':$('#map').height()};
+		var topLeft = {'x':((mapDim.width * (1-scale))/2),'y':((mapDim.height * (1-scale))/2)};
+		$("#map").panzoom('pan',(-topLeft.x - x*scale + window.innerWidth/2 ),(-topLeft.y - y*scale + window.innerHeight/2),{ relative: false });
+	}
+}
+
+var helper = new Helper();

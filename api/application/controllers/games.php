@@ -74,7 +74,7 @@ class games extends CI_Controller {
         {
             $password = $this->input->post('password');
             $name = $this->input->post('gameName');
-            $id = $this->gamesModel->createGame($name, $password);
+            $data->id = $this->gamesModel->createGame($name, $password);
             $data->errors = [];            
             $this->output
             ->set_content_type('application/json')

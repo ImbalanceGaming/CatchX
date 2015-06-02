@@ -9,6 +9,7 @@
 	<script src="js/jquery.animate-colors-min.js"></script>
 	<script src="js/jquery.panzoom.js"></script>
 	<script src="js/jquery.cookie.js" ></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" ></script>
 	<script src="js/game/powerups.js"></script>
 	<script src="js/game/selection.js"></script>
 	<script src="js/game/graph.js"></script>
@@ -29,44 +30,28 @@
 	<audio preload="auto" autobuffer id="audioPlayer"> 
 	  <source src="audio/Batman/BatmanMove1.wav" />
 	</audio>		
-	<div id="hud">
-		<div id="topHudElement">
-			<div id="innerHud">
-				<div id="hudEvil">
-					<div id="p0portret" class="hudPortret"><img id="xPortret" src="avatars/jokerPortret.png" height="80" width="60"></div>
-					<div style="clear:both;"></div>
-				</div>
-				<div id="hudGood">
-					<div id="p1portret" class="hudPortret"><img src="avatars/batmanPortret.png" height="80" width="60"></div>
-					<div id="p2portret" class="hudPortret"><img src="avatars/robinPortret.png" height="80" width="60"></div>
-					<div id="p3portret" class="hudPortret"><img src="avatars/gordonPortret.png" height="80" width="60"></div>
-					<div id="p4portret" class="hudPortret"><img src="avatars/catwomanPortret.png" height="80" width="60"></div>
-					
-					<div style="clear:both;"></div>
-				</div>
-				
-				<div style="clear:both;"></div>
-				
-				
-			</div>
-		</div>
-	</div>
+	
 	
 	<div id="map">
 		<svg width="4357" height="6581">
 		</svg>
 	</div>
-	<div id="logOuter">
-		<div id="log">			
-			<div id="logInner">				
-				<div class="hudBlock" style="color:white; background-color:purple;">?</div>				
-			</div>			
+	
+	<div id="hudPortraits">
+		<div id="p0portret" class="hudPortrait"><img id="p0portretImg" src="avatars/jokerPortret.png" ></div>
+		<div id="p1portret" class="hudPortrait"><img id="p1portretImg" src="avatars/batmanPortret.png" ></div>
+		<div id="p2portret" class="hudPortrait"><img id="p2portretImg" src="avatars/robinPortret.png" ></div>
+		<div id="p3portret" class="hudPortrait"><img id="p3portretImg" src="avatars/gordonPortret.png" ></div>
+		<div id="p4portret" class="hudPortrait"><img id="p4portretImg" src="avatars/catwomanPortret.png" ></div>
+		<div style="clear:both;"></div>
+	</div>
+	
+	<div id="log">	
+		<div id="logInner">
+			<div class="hudBlock" style="color:white; background-color:purple;">234</div>	
 		</div>
 	</div>
-	<div id="bottomHudElement">
-		<div id="bottomHudElementInner">
-		</div>			
-	</div>
+	
 	<div id="doubleAndJokerTickets">
 		<input id="doubleCheckbox" type="checkbox" >
 		<label for="doubleCheckbox" class="css-label">double x</label><span id="doubleTicketsValue"></span>
