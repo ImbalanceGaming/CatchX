@@ -58,8 +58,9 @@ class GamesModel extends CI_Model {
     
     function getGames()
     {
-        $this->db->where('active', true);
-        $query = $this->db->query('SELECT name FROM games');
+		$this->db->select('name');
+        $query = $this->db->get_where('games', array('active' => true));
+        //$query = $this->db->query('SELECT name FROM games');
         $names = [];
         
         foreach ($query->result() as $row)

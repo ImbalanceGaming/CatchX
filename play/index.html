@@ -10,6 +10,7 @@
 	<script src="js/jquery.panzoom.js"></script>
 	<script src="js/jquery.cookie.js" ></script>
 	<script src="js/jquery.mobile-1.4.5.min.js" ></script>
+	<script src="js/game/notification.js"></script>
 	<script src="js/game/powerups.js"></script>
 	<script src="js/game/selection.js"></script>
 	<script src="js/game/graph.js"></script>
@@ -19,7 +20,6 @@
 	<script src="js/game/ajaxCalls.js"></script>
 	<script src="js/game/helper.js"></script>
 	<script src="js/game/initialize.js"></script>
-	<script src="js/game/turnSign.js"></script>
 	<script>
 		var side = $.cookie('side');;
 		var id = $.cookie('id');
@@ -38,11 +38,11 @@
 	</div>
 	
 	<div id="hudPortraits">
-		<div id="p0portret" class="hudPortrait"><img id="p0portretImg" src="avatars/jokerPortret.png" ></div>
-		<div id="p1portret" class="hudPortrait"><img id="p1portretImg" src="avatars/batmanPortret.png" ></div>
-		<div id="p2portret" class="hudPortrait"><img id="p2portretImg" src="avatars/robinPortret.png" ></div>
-		<div id="p3portret" class="hudPortrait"><img id="p3portretImg" src="avatars/gordonPortret.png" ></div>
-		<div id="p4portret" class="hudPortrait"><img id="p4portretImg" src="avatars/catwomanPortret.png" ></div>
+		<div id="p0portret" class="hudPortrait"><img id="p0portretImg" src="avatars/jokerPortret.jpeg" ></div>
+		<div id="p1portret" class="hudPortrait"><img id="p1portretImg" src="avatars/batmanPortret.jpeg" ></div>
+		<div id="p2portret" class="hudPortrait"><img id="p2portretImg" src="avatars/robinPortret.jpeg" ></div>
+		<div id="p3portret" class="hudPortrait"><img id="p3portretImg" src="avatars/gordonPortret.jpeg" ></div>
+		<div id="p4portret" class="hudPortrait"><img id="p4portretImg" src="avatars/catwomanPortret.jpeg" ></div>
 		<div style="clear:both;"></div>
 	</div>
 	
@@ -58,6 +58,10 @@
 		<br>
 		<input id="hiddenCheckbox" type="checkbox" >
 		<label for="hiddenCheckbox" class="css-label">hidden x</label><span id="hiddenTicketsValue"></span>
+	</div>
+	
+	<div id="notification">
+		moie
 	</div>
 	
 	

@@ -13,7 +13,7 @@ Selection = function ()
         
         this.nodesAdjacentToSelectedPlayer.forEach(function(nodeId){
             game.graph.nodes[nodeId].RemoveHighlight();
-	});
+		});
         
         this.nodesAdjacentToSelectedPlayer = game.graph.nodes[player.position].adjacentNodes;
         

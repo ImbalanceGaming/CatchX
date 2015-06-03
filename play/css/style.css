@@ -1,3 +1,10 @@
+/* Fonts */
+@font-face {
+    font-family: maffiaFont;
+    src: url(../fonts/maffiaFont.ttf);
+}
+/* /Fonts */
+
 html,body{
 	width:100%;
 	height:100%;
@@ -76,7 +83,7 @@ body
 	background-color:#010132;
 	box-shadow: -3px 3px 3px #888888;
 	padding-left:2%;
-	background-image:url(../images/UIpattern.png);
+	background-image:url(../images/UIpattern.jpeg);
 }
 
 .hudPortrait{
@@ -94,6 +101,7 @@ body
 
 .blinking
 {
+
 	-webkit-animation-name: blink;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
@@ -107,6 +115,7 @@ body
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-play-state: running;
+	
 }
 
 @-webkit-keyframes blink {
@@ -129,7 +138,7 @@ body
 	background-color:#010132;
 	box-shadow: 3px 3px 3px #888888;
 	padding-right:2%;
-	background-image:url(../images/UIpattern.png);
+	background-image:url(../images/UIpattern.jpeg);
 	height:100%;
 }
 
@@ -138,35 +147,6 @@ body
 	background-color:gray;
 	padding:10px;
 }
-
-/*
-#logOuter
-{
-	position:fixed;
-	height:100%;
-	background-image:url(../images/UIpattern.png);
-	width:115px;
-	bottom:0%;
-	box-shadow: 3px 3px 3px #888888;
-}
-
-#log
-{
-	position:fixed;
-	height:100%;
-	background-color:gray;
-	width:85px;
-	bottom:0%;
-	overflow:hidden;
-}
-
-#logInner
-{
-	width:40px;
-	padding:5px;
-	height:2000px;
-}
-*/
 
 .hudBlock, .hudCircle
 {
@@ -245,7 +225,7 @@ body
 
 .pion:hover
 {
-
+/*
 	-webkit-animation-name: hoverPion;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
@@ -259,11 +239,12 @@ body
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-play-state: running;
-	
+	*/
 }
 
 .selected
 {	
+	/*
 	-webkit-animation-name: selectedAnimation;
     -webkit-animation-duration: 3s;
     -webkit-animation-timing-function: linear;
@@ -275,6 +256,7 @@ body
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-play-state: running;
+	*/
 }
 
 @-webkit-keyframes selectedAnimation {
@@ -292,6 +274,11 @@ body
 }
 
 .moveNode{
+
+	-webkit-transform: scale:(2,2);
+	transform: scale(2, 2);
+	
+/*
 	-webkit-animation-name: moveNodeAnimation;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
@@ -303,6 +290,7 @@ body
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-play-state: running;
+	*/
 }
 
 @-webkit-keyframes moveNodeAnimation {
@@ -317,49 +305,6 @@ body
 	100% {transform: scale(2,2);}
 }
 
-.announcementBlink{
-    -webkit-animation-name: announcementBlinkAnimation;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-play-state: running;
-	
-    animation-name: announcementBlinkAnimation;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-play-state: running;
-}
-
-@-webkit-keyframes announcementBlinkAnimation {
-	0%   {background-color:black;}
-	50%  {background-color:#C2B615;}
-	100% {background-color:black;}
-}
-
-@keyframes announcementBlinkAnimation {
-	0%   {background-color:black;}
-	50%  {background-color:#C2B615;}
-	100% {background-color:black;}
-}
-
-#announcement
-{
-	position:relative;
-	width:400px;
-	height:65px;
-	background-color:#010132;
-	text-align:center;
-	margin:auto;
-	padding-top:20px;
-	font-size:200%;
-	color:white;
-	border-style:solid;
-	border-color:white;
-	border-width:0px;
-	border-top-width:2px;
-}
-
 
 
 #doubleAndJokerTickets
@@ -368,7 +313,7 @@ body
 	width:100px;
 	display:none;
 	position:fixed;
-	background-image:url(../images/UIpattern.png);
+	background-image:url(../images/UIpattern.jpeg);
 	color:white;
 	top:50%;
 	right:0%;
@@ -376,6 +321,23 @@ body
 	box-shadow: -3px -3px 3px #888888, -3px 3px 3px #888888;
 	border-top-left-radius:10px;
 	border-bottom-left-radius:10px;
+}
+
+/* Notification */
+
+#notification
+{
+	pointer-events: none;
+	position:fixed;
+	top:calc(50% - 115px);
+	width:100%;
+	text-align:center;
+	font-family: maffiaFont;
+	font-size:200px;
+	color:yellow;
+	opacity:0;
+	transition: opacity .5s;
+	
 }
 
 

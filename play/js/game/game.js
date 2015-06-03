@@ -3,12 +3,18 @@ game.wait = true;
 game.activePlayer = 0;
 game.players = [];
 game.graph = {};
+game.turnSide = "";
 
 
 game.Initialize = function (gameState)
 {
     game.graph = new Graph(gameState.graph);
-    
+	
+    game.notificator = new Notification();
+	game.turnSide = gameState.turnSide;
+	game.NotifyTurnChange(game.turnSide);
+	
+	
     for (i = 0; i < gameState.players.length; i++)
     {
         var player = gameState.players[i];
@@ -31,6 +37,18 @@ game.Initialize = function (gameState)
     game.Update(gameState); 
 }
 
+game.NotifyTurnChange = function(turnSide)
+{
+	if (turnSide == "evil")
+	{
+		game.notificator.Notify("Mr.X turn");
+	}
+	else
+	{
+		game.notificator.Notify("Detectives turn");
+	}
+}
+
 game.Update = function (gameState) 
 {    
     for (i = 0; i < game.players.length; i++) { 
@@ -40,10 +58,21 @@ game.Update = function (gameState)
     
     if (!game.Victory(gameState))
     {
+		if (gameState.turnSide != game.turnSide)
+		{
+			game.turnSide = gameState.turnSide;
+			game.NotifyTurnChange(game.turnSide);
+		}
+		
+		
         if (game.side != gameState.turnSide)
+		{
             setTimeout(function(){GetState(game.Update)}, 3000);
+		}
         else
+		{
             game.wait = false;
+		}
     }
 }
 
@@ -60,6 +89,12 @@ game.Victory = function (gameState)
     if (gameState.victory != "none")
     {
         wait = true;
+		
+		for (var i = 0; i <= 4; i++)
+		{
+			$( "#p" + i + "portretImg" ).removeClass("blinking");
+		}
+		
         
         if (gameState.victory == "good")
             game.GoodEnding();
@@ -76,8 +111,10 @@ game.GoodEnding = function ()
     var x = node.x - $("#jokerLose").width() / 2 - 80;
     var y = node.y - $("#jokerLose").height() / 2;
     $("#jokerLose").css({left:x,top:y});
+	game.notificator.Notify("Detectives win!");
 }
 
 game.BadEnding = function ()
 {
+	game.notificator.Notify("Mr.X wins!");
 }
