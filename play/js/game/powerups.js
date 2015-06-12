@@ -9,7 +9,7 @@ Powerups = function (gameState)
         this.doubles = gameState.doubles;
         
         $("#doubleTicketsValue").html(gameState.doubles);
-	$("#hiddenTicketsValue").html(gameState.hiddens);
+		$("#hiddenTicketsValue").html(gameState.hiddens);
     };
     
     this.Initialize = function (gameState)

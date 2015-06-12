@@ -32,7 +32,9 @@ game.Initialize = function (gameState)
     game.side = game.DetermineSide(gameState);
     log.Create(gameState);
     if (game.side == "evil")
+	{
         game.powerups = new Powerups(gameState);
+	}
     
     game.Update(gameState); 
 }
@@ -55,6 +57,10 @@ game.Update = function (gameState)
         game.players[i].Update(gameState);
     }
     log.Update(gameState);
+	if (game.side == "evil")
+	{
+		game.powerups.Update(gameState);
+	}
     
     if (!game.Victory(gameState))
     {

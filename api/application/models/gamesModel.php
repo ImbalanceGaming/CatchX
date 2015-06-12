@@ -7,47 +7,21 @@ class GamesModel extends CI_Model {
     {
         $this->load->model('gameStateModel');
         
-        if (!$this->nameExistsAndGameIsActive($name))
-        {
-            $this->load->helper('string');
-            $id = random_string('alnum', 16);
-            
-            $data = array(
-                'id' => $id,
-                'name' => $name ,
-                'password' => $password,
-                'active' => true,
-                'gameState' => $this->gameStateModel->getInitialGameState()
-            );
+
+        $this->load->helper('string');
+        $id = random_string('alnum', 16);
+
+        $data = array(
+            'id' => $id,
+            'name' => $name ,
+            'password' => $password,
+            'active' => true,
+            'gameState' => $this->gameStateModel->getInitialGameState()
+        );
 
          $this->db->insert('games', $data); 
          return $id;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    function nameExistsAndGameIsActive($name)
-    {
-        $this->db->where('name', $name); 
-        $this->db->where('active', true); 
-        $query = $this->db->get('games');
-        
-        if ($query->num_rows() > 1)
-        {
-            # TODO: add error handling or post a log 
-        }
-        
-        if ($query->num_rows() == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+
     }
 
     function __construct()
@@ -77,7 +51,7 @@ class GamesModel extends CI_Model {
     
     function getID($gameName, $password)
     {        
-        $query = $this->db->get_where('games', array('name' => $gameName,'password' => $password), 1, 0);
+        $query = $this->db->get_where('games', array('name' => $gameName,'password' => $password, 'active' => true), 1, 0);
         return $query->row()->id;
     }
 }

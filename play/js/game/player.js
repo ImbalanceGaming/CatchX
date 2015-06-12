@@ -6,6 +6,7 @@ Player = function(id, position, turn, control, image, name)
     this.control = control;
     this.htmlElement = {};
     this.name = name;
+	this.image = image;
     
     this.Update = function (gameState)
     {
@@ -14,7 +15,20 @@ Player = function(id, position, turn, control, image, name)
             this.Move(game.graph.nodes[newPosition].x,game.graph.nodes[newPosition].y, newPosition);
         this.turn = gameState.players[this.id].turn;
         this.UpdatePortret(gameState);
+		this.UpdatePawn();
     }
+	
+	this.UpdatePawn = function()
+	{
+		if (this.turn)
+		{
+			this.htmlElement.attr('src', "avatars/pawnReady" + this.name + ".png")
+		}
+		else
+		{
+			this.htmlElement.attr('src', "avatars/" + this.image)
+		}
+	}
     
     this.Move = function (x,y, newPosition)
     {
