@@ -117,6 +117,10 @@ game.Victory = function (gameState)
 
 game.GoodEnding = function ()
 {
+	var audio = new Audio("audio/Joker/JokerLose.wav");
+	audio.volume = 0.3;
+	audio.play();
+	
     $("#map").append('<img id="jokerLose" src="avatars/jokerAvatarLose.png" height=150 width=150  alt="joker" class="avatar" style="">');
     var node = game.graph.nodes[game.players[0].position];
     var x = node.x - $("#jokerLose").width() / 2 - 80;
@@ -128,4 +132,7 @@ game.GoodEnding = function ()
 game.BadEnding = function ()
 {
 	game.notificator.Notify("Mr.X wins!");
+	var audio = new Audio("audio/Joker/JokerWin.wav");
+	audio.volume = 0.3;
+	audio.play();
 }
