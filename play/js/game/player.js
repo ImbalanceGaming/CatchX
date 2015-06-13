@@ -55,6 +55,7 @@ Player = function(id, position, turn, control, image, name)
         game.selection.SelectPlayer(this);
 	
 		var audio = new Audio("audio/" + this.name + "/" + this.name + "Select" + Math.floor((Math.random() * 4) + 1) + ".wav");
+		audio.volume = 0.3;
 		audio.play();
     }
     
@@ -102,6 +103,7 @@ Player = function(id, position, turn, control, image, name)
     this.PlayMoveSound = function()
     {
         var audio = new Audio("audio/" + this.name + "/" + this.name + "Move" + Math.floor((Math.random() * 1) + 1) + ".wav");
+		audio.volume = 0.3;
         audio.play();
     }
 };

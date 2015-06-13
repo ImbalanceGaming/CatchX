@@ -41,6 +41,11 @@ game.Initialize = function (gameState)
 
 game.NotifyTurnChange = function(turnSide)
 {
+	var audio = new Audio("audio/other/turn.mp3");
+	audio.volume = 0.3;
+	audio.play();
+	
+	
 	if (turnSide == "evil")
 	{
 		game.notificator.Notify("Mr.X turn");
