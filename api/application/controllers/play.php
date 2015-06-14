@@ -15,12 +15,12 @@ class play extends CI_Controller {
         if ($password && $id)
         {
             $this->load->database();
-            $this->load->model('gameStateModel');
-            $gameState = json_decode($this->gameStateModel->getGameStateById($id, $password));              
-            $gameState = $this->gameStateModel->SetGameStateControl($side, $gameState);
+            $this->load->model('Game_state_model');
+            $gameState = json_decode($this->Game_state_model->getGameStateById($id, $password));
+            $gameState = $this->Game_state_model->SetGameStateControl($side, $gameState);
 
             if ($side == "good")
-                $gameState = $this->gameStateModel->limitDetectiveInformation( $gameState);
+                $gameState = $this->Game_state_model->limitDetectiveInformation( $gameState);
             
             if ($gameState)
             {                    
@@ -45,21 +45,21 @@ class play extends CI_Controller {
         if ($password && $id)
         {
             $this->load->database();
-            $this->load->model('gameStateModel');
-            $gameState = json_decode($this->gameStateModel->getGameStateById($id, $password));
+            $this->load->model('Game_state_model');
+            $gameState = json_decode($this->Game_state_model->getGameStateById($id, $password));
             
-            if ($gameState->victory == "none" && $this->gameStateModel->moveValid($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket))
+            if ($gameState->victory == "none" && $this->Game_state_model->moveValid($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket))
             {            
-                $gameState = $this->gameStateModel->doMove($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket);
-                $this->gameStateModel->saveGameState($gameState, $id);
+                $gameState = $this->Game_state_model->doMove($gameState, $player, $position, $destination, $hiddenTicket, $doubleTicket);
+                $this->Game_state_model->saveGameState($gameState, $id);
             }
-            $gameState = $this->gameStateModel->SetGameStateControl($side, $gameState);
+            $gameState = $this->Game_state_model->SetGameStateControl($side, $gameState);
 
             if ($side == "good")
-                $gameState = $this->gameStateModel->limitDetectiveInformation( $gameState);
+                $gameState = $this->Game_state_model->limitDetectiveInformation( $gameState);
             
             if ($gameState->victory != "none")
-                $this->gameStateModel->deactivateGameState($id);
+                $this->Game_state_model->deactivateGameState($id);
             
             if ($gameState)
             {                    
