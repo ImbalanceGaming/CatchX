@@ -1,147 +1,169 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Jan 8, 2015, 9:36:43 PM
-    Author     : Frank
-*/
+.currentTime
+{
+	background-color: rgb(223, 255, 216);
+}
 
-/* fonts*/
+/* Shared */
 
+body{
+		overflow-y: scroll;
+}
+
+.fade.ng-enter {
+	-webkit-transition: 0.2s linear all; 
+	transition: 0,2s linear all;
+	opacity: 0;
+    transition-delay: 0.2s;
+	-webkit-transition-delay: 0.2s;
+}
+
+.fade.ng-enter-active
+{
+	opacity:1;
+}
+
+
+.fade.ng-leave {
+	-webkit-transition: 0.2s linear all; 
+	transition: 0,2s linear all;
+	opacity: 1;
+}
+
+.fade.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.fade{
+	opacity:1;
+}
 
 @font-face {
-    font-family: mafiaFont;
+    font-family: maffiaFont;
     src: url(../fonts/maffiaFont.ttf);
 }
 
-
-/* shared */
+body
+{
+	background-color:black;
+	color:yellow;
+}
 
 button
 {
-    margin-top:50px;
-    width: 700px; 
-    background: linear-gradient(#F6FF00, #A8AD00); 
-    font-size: 70px;
+	color:black;
+	background-color:yellow;
 }
 
-body{
-    background-color:black;
-}
-
-input[type="submit"]
+input
 {
-    width: 200px; 
-    background: linear-gradient(#F6FF00, #A8AD00); 
-    font-size: 40px;
-    font-family: mafiaFont;
+	color:black;
 }
 
-h1, h2
+h1, h2, h3, #navbarTitle
 {
-    font-family: mafiaFont;
+	font-family:maffiaFont;
 }
 
 h1
 {
-    font-size:60px;
+	font-size:50px;
 }
 
-h2{
-    font-size: 50px;
+a{
+	color:purple;
 }
+
+/* Navbar */
+#navbarTitle
+{
+	font-size:60px;
+}
+
+/* gamesList */
+
+/* join */
+#join h1
+{
+	font-size:100px;
+}
+
+.vs
+{
+	font-family: maffiaFont;
+	font-size:50px;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+#gamesList tbody tr{
+	transition: background-color 0.5s, color 0.5s;
+}
+
+#gamesList tbody tr:hover{
+	background-color:yellow;
+	color:purple;
+}
+
+#gameList img{
+	vertical-align: text-top;
+}
+
+.bigImage, .smallImage{
+	height:170px;
+}
+
+#gamesList br
+{
+	display:none;
+}
+
+@media screen and (max-width: 1200px) {
+	
+	.bigImage, .smallImage{
+		height:95px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	#gamesList br
+	{
+		display:inline;
+	}
+	
+	.bigImage{
+		height:80px;
+	}
+
+	.smallImage{
+		height:40px;
+	}
+}
+
+
+/* /join */
 
 /* home */
-
-#home
+#home .header
 {
-    text-align: center;
-    font-family: mafiaFont;
+	background-color:yellow;
+	color:black;
+	text-align:center;
+	padding:40px;
+	margin-bottom:30px;
 }
 
 #home h1{
-    font-size: 150px;
+	font-size:100px;
 }
 
-#homeBannerContainer
-{    
-    padding-top:20px;
-    background: linear-gradient(#F6FF00, #A8AD00);
-}
-
-/* games */
-
-/* games/shared */
-#gamesIndex, #gamesHost
-{
-    color:yellow;    
-}
-
-#gamesIndex input, #gamesHost input
-{
-    color:black
-}
-
-/* bootstrap */
-
-.navbar-default {
-	background-color: #000000;
-	border-color: #000000;
-}
-.navbar-default .navbar-brand {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-	color: #ffff00;
-}
-.navbar-default .navbar-text {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-nav > li > a {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-	color: #ffff00;
-}
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	color: #ffff00;
-	background-color: #000000;
-}
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-	color: #ffff00;
-	background-color: #000000;
-}
-.navbar-default .navbar-toggle {
-	border-color: #000000;
-}
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-	background-color: #000000;
-}
-.navbar-default .navbar-toggle .icon-bar {
-	background-color: #ecf0f1;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-	border-color: #ecf0f1;
-}
-.navbar-default .navbar-link {
-	color: #ecf0f1;
-}
-.navbar-default .navbar-link:hover {
-	color: #ffff00;
-}
-
-@media (max-width: 767px) {
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
-		color: #ecf0f1;
+@media screen and (max-width: 500px) {
+	#home img
+	{
+		display:none;
 	}
-	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-		color: #ffff00;
-	}
-	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-		color: #ffff00;
-		background-color: #000000;
+
+	#home .container
+	{
+		margin:10px;
 	}
 }

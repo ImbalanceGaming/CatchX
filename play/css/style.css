@@ -1,0 +1,382 @@
+/* Fonts */
+@font-face {
+    font-family: maffiaFont;
+    src: url(../fonts/maffiaFont.ttf);
+}
+/* /Fonts */
+
+html,body{
+	width:100%;
+	height:100%;
+}
+
+body
+{
+	margin:0px;
+	padding:0px;
+	overflow:hidden;
+	background-color:black;
+	position:absolute;
+}
+
+.ui-page{
+	overflow:visible !important;
+}
+
+#map
+{
+	width:4357px;
+	height:6581px;
+
+	background-image:url("../maps/gotham.jpeg");
+	position:relative;
+	transform-origin: 0% 0%;
+}
+
+.node
+{
+	position:absolute;
+	width:50px;
+	height:40px;
+	border-radius:50%;
+	background-color:black;
+	border-style: solid;
+    border-width: 5px;
+	border-color:#000099;
+	text-align:center;
+	color:white;
+	font-weight:bold;
+	font-size: 150%;
+	padding-top:10px;
+}
+
+.nodeWithGreenConnection
+{
+	background-color:#325E32;
+}
+
+.nodeWithYellowConnection
+{
+	border-color:#C2B615;
+}
+
+.nodeWithBlueConnection
+{
+	color:#009C99;
+}
+
+.avatar
+{
+	position:absolute;
+}
+
+/* Hud */
+
+#hudPortraits
+{
+	position:fixed;
+	height:100%;
+	right:0px;
+	top:0px;
+	box-sizing: border-box;
+	
+	background-color:#010132;
+	box-shadow: -3px 3px 3px #888888;
+	padding-left:2%;
+	background-image:url(../images/UIpattern.jpeg);
+}
+
+.hudPortrait{
+	height:20%;
+	box-sizing: border-box;
+}
+
+.hudPortrait img{
+	border-width:5px;
+	border-style:solid;
+	border-color:rgba(0,0,0,0);
+	height:100%;
+	box-sizing: border-box;	
+}
+
+.blinking
+{
+
+	-webkit-animation-name: blink;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+	
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+	
+}
+
+@-webkit-keyframes blink {
+    0%   {border-color:rgba(0,0,0,0);}
+	10%  {border-color:rgba(0,0,0,0)}
+    100% {border-color:rgba(255,255,0,1);}
+}
+
+@keyframes blink {
+	0%   {border-color:rgba(0,0,0,0);}
+	10%  {border-color:rgba(0,0,0,0.0);}
+    100% {border-color:rgba(255,255,0,1);}
+}
+
+#log{
+	position:fixed;
+	left:0px;
+	top:0px;
+	box-sizing: border-box;
+	background-color:#010132;
+	box-shadow: 3px 3px 3px #888888;
+	padding-right:2%;
+	background-image:url(../images/UIpattern.jpeg);
+	height:100%;
+}
+
+#logInner{
+	height:3000px;
+	background-color:gray;
+	padding:10px;
+}
+
+.hudBlock, .hudCircle
+{
+	border-style:solid;
+	border-width:5px;
+	border-color:black;
+	width:100px;
+	height:100px;
+	background-color:white;
+	color:rgba(0,0,0,0);
+	line-height: 100px;
+	font-size:60px;
+	font-weight: bold;
+	text-align:center;
+}
+
+.hudConnection
+{
+	height:10px;
+	width:20px;
+	margin-left:40px;
+	background-color:white;;
+	border-style:solid;
+	border-width:0px;
+	border-color:black;
+	border-left-width:5px;
+	border-right-width:5px;
+}
+
+.hudCircle
+{
+	border-radius:50%;
+}
+
+#hudNumbers
+{
+	position:absolute;
+	z-index:4;
+	top:235px;
+	text-align:center;
+	width:100%;
+	color:red;
+	font-weight:bold;
+	font-size:350%;
+	
+	text-shadow:
+   -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+     2px 2px 0 #000;
+}
+
+#goodEnding
+{
+	position:fixed;
+	left:0px;
+	top:0px;
+	z-index:10;
+}
+
+
+
+@-webkit-keyframes hoverPion {
+	0%   {-webkit-transform: scale(1,1);}
+	50%  {-webkit-transform: scale(1.2,1.2);}
+    100% {-webkit-transform: scale(1,1);}
+}
+
+/* Standard syntax */
+@keyframes hoverPion {
+	0%   {transform: scale(1,1);}
+	50%  {transform: scale(1.2,1.2);}
+    100% {transform: scale(1,1);}
+}
+
+
+.pion:hover
+{
+	transform: scale(1.2,1.2);
+/*
+	-webkit-animation-name: hoverPion;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+	
+    animation-name: hoverPion;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+	*/
+}
+
+.selected
+{	
+	transform: scale(1.4,1.4);
+	/*
+	-webkit-animation-name: selectedAnimation;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+	
+    animation-name: selectedAnimation;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+	*/
+}
+
+@-webkit-keyframes selectedAnimation {
+	0%   {-webkit-transform: scale(1.25,1.25);}
+	20%  {-webkit-transform: scale(1.3,1.3);}
+    40% {-webkit-transform: scale(1.25,1.25);}
+	100% {-webkit-transform: scale(1.25,1.25);}
+}
+
+@keyframes selectedAnimation {
+	0%   {transform: scale(1.25,1.25);}
+	20%  {transform: scale(1.3,1.3);}
+    40% {transform: scale(1.25,1.25);}
+	100% {transform: scale(1.25,1.25);}
+}
+
+.moveNode{
+
+	-webkit-transform: scale:(2,2);
+	transform: scale(2, 2);
+	
+/*
+	-webkit-animation-name: moveNodeAnimation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+	
+    animation-name: moveNodeAnimation;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+	*/
+}
+
+@-webkit-keyframes moveNodeAnimation {
+	0%   {-webkit-transform: scale(2, 2);}
+	50%  {-webkit-transform: scale(2.5,2.5);}
+	100% {-webkit-transform: scale(2,2);}
+}
+
+@keyframes moveNodeAnimation {
+	0%   {transform: scale(2, 2);}
+	50%  {transform: scale(2.5,2.5);}
+	100% {transform: scale(2,2);}
+}
+
+
+
+#doubleAndJokerTickets
+{
+    z-index:20;
+	width:100px;
+	position:fixed;
+	background-image:url(../images/UIpattern.jpeg);
+	color:white;
+	bottom:0%;
+	left:calc(50% - 50px);
+	box-shadow: -3px -3px 3px #888888, 3px -3px 3px #888888;
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+	padding:5px;
+	display:none;
+}
+
+/* Notification */
+
+#notification
+{
+	pointer-events: none;
+	position:fixed;
+	top:calc(50% - 115px);
+	width:100%;
+	text-align:center;
+	font-family: maffiaFont;
+	font-size:200px;
+	color:yellow;
+	opacity:0;
+	transition: opacity .5s;
+	
+}
+
+.ready
+{
+	-webkit-animation-name: selectedAnimation;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+	
+    animation-name: selectedAnimation;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
+
+#menu{
+	z-index:20;
+	width:100px;
+	position:fixed;
+	background-image:url(../images/UIpattern.jpeg);
+	color:white;
+	top:0%;
+	left:calc(50% - 50px);
+	box-shadow: -3px 3px 3px #888888, 3px 3px 3px #888888;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
+	padding:5px;
+	text-align:center;
+}
+
+#menu a{
+	font-family:maffiaFont;
+	font-size:40px;
+}
+
+
+
+

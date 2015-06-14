@@ -1,0 +1,29 @@
+	<div class="container" id="join">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Mr.X vs Detectives:<h2>
+				<img src="images/jokerPortret.png" height="100px">
+				<span class="vs">vs</span>				
+				<img src="images/batmanPortret.png" height="100px">
+				<img src="images/robinPortret.png" height="100px">
+				<img src="images/catwomanPortret.png" height="100px">
+				<img src="images/gordonPortret.png" height="100px">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h2>City:<h2>
+				<p><img src="images/gotham.jpeg" height="235px"><p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<input ng-model="password" type="password" name="password" placeholder="password"><br>
+				<button  ng-click="Join('good')">Join as detectives</button>
+				<button  ng-click="Join('evil')">Join as Mr.X</button>
+				<div id="errors" data-ng-repeat="msg in errors">
+					<p> {{ msg }} </p>
+				</div>
+			</div>
+		</div>
+    </div>
