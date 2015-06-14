@@ -1,11 +1,11 @@
 <?php
 
-class Gamesmodel extends CI_Model {
+class Games_model extends CI_Model {
 
 
     function createGame($name, $password)
     {
-        $this->load->model('gameStateModel');
+        $this->load->model('Game_state_model');
         
 
         $this->load->helper('string');
@@ -16,7 +16,7 @@ class Gamesmodel extends CI_Model {
             'name' => $name ,
             'password' => $password,
             'active' => true,
-            'gameState' => $this->gameStateModel->getInitialGameState()
+            'gameState' => $this->Game_state_model->getInitialGameState()
         );
 
          $this->db->insert('games', $data); 

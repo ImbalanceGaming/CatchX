@@ -6,7 +6,7 @@ class games extends CI_Controller {
     {
         parent::__construct();
         $this->load->database();
-        $this->load->model('gamesModel');
+        $this->load->model('Games_model');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
     }
@@ -32,7 +32,7 @@ class games extends CI_Controller {
         {
             $gameName = $this->input->post('gameName');
             $password = $this->input->post('password');
-            $data->id = $this->gamesModel->getID($gameName, $password);
+            $data->id = $this->Games_model->getID($gameName, $password);
             $data->errors = [];
             
             $this->output
@@ -46,7 +46,7 @@ class games extends CI_Controller {
         $gameName = $this->input->post('gameName');
         $password = $this->input->post('password');
         
-        if ($this->gamesModel->checkPassword($gameName, $password))
+        if ($this->Games_model->checkPassword($gameName, $password))
         {
             return True;
         }
@@ -74,7 +74,7 @@ class games extends CI_Controller {
         {
             $password = $this->input->post('password');
             $name = $this->input->post('gameName');
-            $data->id = $this->gamesModel->createGame($name, $password);
+            $data->id = $this->Games_model->createGame($name, $password);
             $data->errors = [];            
             $this->output
             ->set_content_type('application/json')
@@ -84,7 +84,7 @@ class games extends CI_Controller {
     
     public function gameNameIsUnique($gameName)
     {
-        $gameNames = $this->gamesModel->getGames();
+        $gameNames = $this->Games_model->getGames();
         
         if (in_array($gameName, $gameNames))
         {
@@ -101,6 +101,6 @@ class games extends CI_Controller {
     {        
         $this->output
             ->set_content_type('application/json')
-            ->set_output(json_encode($this->gamesModel->getGames()));
+            ->set_output(json_encode($this->Games_model->getGames()));
     }
 }
