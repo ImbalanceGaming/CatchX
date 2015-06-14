@@ -1,6 +1,6 @@
 <?php
 
-class GamesModel extends CI_Model {
+class Gamesmodel extends CI_Model {
 
 
     function createGame($name, $password)
