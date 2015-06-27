@@ -1,6 +1,6 @@
 <?php
 
-class gameStateModel extends CI_Model {    
+class Game_state_model extends CI_Model {
     
     function getInitialGameState()
     {        
