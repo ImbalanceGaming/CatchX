@@ -8,4 +8,6 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 .idea/
+
 **/database.php
+api/application/config/database.php
