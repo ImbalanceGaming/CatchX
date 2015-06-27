@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" />
+	
+	<script src="../js/constants.js"></script>
+	<script src="js/jquery-2.1.3.min.js"></script>
+	<script src="js/jquery.animate-colors-min.js"></script>
+	<script src="js/jquery.panzoom.js"></script>
+	<script src="js/jquery.cookie.js" ></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" ></script>
+	<script src="js/game/notification.js"></script>
+	<script src="js/game/powerups.js"></script>
+	<script src="js/game/selection.js"></script>
+	<script src="js/game/graph.js"></script>
+	<script src="js/game/player.js"></script>
+	<script src="js/game/log.js"></script>
+	<script src="js/game/game.js"></script>
+	<script src="js/game/ajaxCalls.js"></script>
+	<script src="js/game/helper.js"></script>
+	<script src="js/game/initialize.js"></script>
+	<script>
+		var side = $.cookie('side');;
+		var id = $.cookie('id');
+		var password = $.cookie('password');
+	</script>
+</head>
+<body>
+	<audio preload="auto" autobuffer id="audioPlayer"> 
+	  <source src="audio/Batman/BatmanMove1.wav" />
+	</audio>		
+	
+	
+	<div id="map">
+		<svg width="4357" height="6581">
+		</svg>
+	</div>
+	
+	<div id="hudPortraits">
+		<div id="p0portret" class="hudPortrait"><img id="p0portretImg" src="avatars/jokerPortret.jpeg" ></div>
+		<div id="p1portret" class="hudPortrait"><img id="p1portretImg" src="avatars/batmanPortret.jpeg" ></div>
+		<div id="p2portret" class="hudPortrait"><img id="p2portretImg" src="avatars/robinPortret.jpeg" ></div>
+		<div id="p3portret" class="hudPortrait"><img id="p3portretImg" src="avatars/gordonPortret.jpeg" ></div>
+		<div id="p4portret" class="hudPortrait"><img id="p4portretImg" src="avatars/catwomanPortret.jpeg" ></div>
+		<div style="clear:both;"></div>
+	</div>
+	
+	<div id="log">	
+		<div id="logInner">
+			<div class="hudBlock" style="color:white; background-color:purple;">234</div>	
+		</div>
+	</div>
+	
+	<div id="doubleAndJokerTickets">
+		<input id="doubleCheckbox" type="checkbox" ><label for="doubleCheckbox">double x <span id="doubleTicketsValue"></span></label>
+		<input id="hiddenCheckbox" type="checkbox" ><label for="hiddenCheckbox">hidden x <span id="hiddenTicketsValue"></span></label>
+	</div>
+	
+	<div id="notification">
+		moie
+	</div>
+	
+	<div id="menu">
+		<a target='_top' href="http://localhost/catchX/">Back</a>
+	</div>
+	
+	
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+</body>
+</html>

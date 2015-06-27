@@ -1,0 +1,42 @@
+	<div class="container" id="gamesList">
+		<h1>Games</h1>
+		</br>
+		
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Mr.X</th>
+						<th>Detectives</th>
+						<th>Map</th>
+					</tr>
+				</thead>
+			<tbody>	
+				<tr data-ng-repeat="input in games | startFrom:currentPage*pageSize | limitTo:pageSize" such-href="join/{{ input }}">
+					<td> {{ input }} </td>
+					<td>
+						<img src="images/jokerPortret.png" class="bigImage">
+					</td>
+					<td>
+						<img src="images/batmanPortret.png" class="smallImage">
+						<img src="images/robinPortret.png" class="smallImage"><br>
+						<img src="images/catwomanPortret.png" class="smallImage">
+						<img src="images/gordonPortret.png" class="smallImage">
+					</td>
+					<td>
+						<img src="images/gotham.jpeg" class="bigImage">
+					</td>
+				</tr>	
+			</tbody>
+			</table>
+			<div class="controls">
+				<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+					Previous
+				</button>
+				{{currentPage+1}}/{{numberOfPages()}}
+				<button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+					Next
+				</button><br><br>
+				<button ng-click="UpdateGames()">Refresh</button>
+			<div>
+    </div>

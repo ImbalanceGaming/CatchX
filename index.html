@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="catchXApp">
+<head>
+	<!-- meta tag needed for bootstrap to detect mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Styling -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/style.css">
+	
+	<!-- Main scripts -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"></script>
+	<script src="js/angular-resource.min.js"></script> 
+	<script src="js/angular-animate.js"></script>
+	<script src="js/jquery.cookie.js" ></script>
+	<script src="js/constants.js" ></script>
+	
+	<!-- UI scripts -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+	<!-- App scripts -->
+	<script src="app/app.js"></script>
+	<script src="app/directives/such-href.js"></script>
+	<script src="app/controllers/gamesController.js"></script>
+	<script src="app/controllers/hostController.js"></script>
+	<script src="app/controllers/joinController.js"></script>
+	<script src="app/filters/filters.js"></script>	
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+			<img class="navbar-brand" style="height:47px; padding:0px; margin-right:5px;" src="images/homeBanner.png">
+            <a id="navbarTitle" class="navbar-brand" href="#/home">CatchX</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#/home">Home</a></li>
+              <!--<li><a href="#/about">About</a></li>-->
+              <li><a href="#/games">Join game</a></li>
+			  <li><a href="#/host">Host game</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+	<div class="fade" ng-view ></div>	
+</body>
+</html>
