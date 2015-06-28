@@ -45,7 +45,6 @@ game.NotifyTurnChange = function(turnSide)
 	audio.volume = 0.3;
 	audio.play();
 	
-	
 	if (turnSide == "evil")
 	{
 		game.notificator.Notify("Mr.X turn");
@@ -89,7 +88,7 @@ game.Update = function (gameState)
 
 game.DetermineSide = function (gameState)
 {
-    if (gameState.players[0].control)
+    if (gameState.players[0].control == '1')
         return "evil";
     else
         return "good";
@@ -97,7 +96,7 @@ game.DetermineSide = function (gameState)
 
 game.Victory = function (gameState)
 {
-    if (gameState.victory != "none")
+    if (gameState.victory != "0")
     {
         wait = true;
 		

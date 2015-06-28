@@ -4,8 +4,9 @@
 
 use \Gas\Core;
 use \Gas\ORM;
+use \Gas\ExtendedGasORM;
 
-class Nodes extends ORM {
+class Characters extends ORM {
 	
 	public $primary_key = 'id';
 
@@ -13,15 +14,13 @@ class Nodes extends ORM {
 	{
 
         self::$relationships = array(
-            'nodeLinks'  => ORM::has_many('\\Model\\NodeLinks'),
-            'graphs' => ORM::belongs_to('\\Model\\Graphs')
+            'players' => ORM::has_many('\\Model\\Players')
         );
 
 		self::$fields = array(
 			'id' => ORM::field('auto[11]'),
-			'graphs_id' => ORM::field('int[11]'),
-			'x' => ORM::field('int[11]'),
-			'y' => ORM::field('int[11]')
+			'name' => ORM::field('char[100]'),
+			'pawnImage' => ORM::field('char[100]'),
 		);
 
 	}

@@ -21,9 +21,9 @@ class NodeLinks extends ORM {
 
 		self::$fields = array(
             'id' => ORM::field('int[11]'),
-			'node_id' => ORM::field('int[11]'),
+			'nodes_id' => ORM::field('int[11]'),
 			'linked_node_id' => ORM::field('int[11]'),
-			'color_id' => ORM::field('int[11]'),
+			'colors_id' => ORM::field('int[11]'),
 		);
 
 	}

@@ -1,106 +1,104 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class games extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
+
         parent::__construct();
-        $this->load->database();
-        $this->load->model('Games_model');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('', '');
+
     }
-    
-    public function Join()
-    {
-        $gameName = $this->input->post('gameName');
+
+    public function checkLogin() {
+
+        $gameId = $this->input->post('gameId');
         $password = $this->input->post('password');
-        
-        
-        $this->form_validation->set_rules('gameName', 'Game name', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required|callback_checkLogin');
+
+        $game = Model\Games::find($gameId);
+
         $data = new stdClass();
-        
-        if ($this->form_validation->run() == FALSE)
-        {
-            $data->errors = [validation_errors()];
-            $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode($data));
-        }
-        else
-        {
-            $gameName = $this->input->post('gameName');
-            $password = $this->input->post('password');
-            $data->id = $this->Games_model->getID($gameName, $password);
+
+        if ($game->password === $password) {
             $data->errors = [];
-            
             $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode($data));
-        }   
-    }
-    
-    public function checkLogin($str)
-    {
-        $gameName = $this->input->post('gameName');
-        $password = $this->input->post('password');
-        
-        if ($this->Games_model->checkPassword($gameName, $password))
-        {
-            return True;
+                ->set_content_type('application/json')
+                ->set_output(json_encode($data));
+        } else {
+            $data->errors = ['Invalid Password'];
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($data));
         }
-        else
-        {
-            $this->form_validation->set_message('checkLogin', 'Game name or password is invalid');
-            return False;
-        }     
+
     }
-    
-    public function Host()
-    {
+
+    public function Host() {
+
         $this->form_validation->set_rules('gameName', 'Game name', 'required|callback_gameNameIsUnique');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $data = new stdClass();
-        
-        if ($this->form_validation->run() == FALSE)
-        {
-            $data->errors = [validation_errors()];            
+
+        if ($this->form_validation->run() == FALSE) {
+            $data->errors = [validation_errors()];
             $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode($data));
-        }
-        else
-        {
+                ->set_content_type('application/json')
+                ->set_output(json_encode($data));
+        } else {
             $password = $this->input->post('password');
             $name = $this->input->post('gameName');
-            $data->id = $this->Games_model->createGame($name, $password);
-            $data->errors = [];            
+
+            $game = new Model\Games();
+            $game->name = $name;
+            $game->password = $password;
+            $game->save();
+            $game->id = $game::last_created()->id;
+
+            $mapId = Model\Graphs::find(1);
+
+            if (empty($mapId)) {
+                $data->errors = 'Cannot find map';
+            } else {
+                $game->createGameState($game->id, $mapId->id, [1,2,3,4,5]);
+                $data->id = $game->id;
+            }
+
             $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode($data));
+                ->set_content_type('application/json')
+                ->set_output(json_encode($data));
         }
+
     }
-    
-    public function gameNameIsUnique($gameName)
-    {
-        $gameNames = $this->Games_model->getGames();
-        
-        if (in_array($gameName, $gameNames))
-        {
-                $this->form_validation->set_message('gameNameIsUnique', 'Game name already exists');
-                return FALSE;
+
+    public function gameNameIsUnique($gameName) {
+
+        $games = Model\Games::getInstance()->getGames();
+
+        if (in_array($gameName, $games)) {
+            $this->form_validation->set_message('gameNameIsUnique', 'Game name already exists');
+            return FALSE;
+        } else {
+            return TRUE;
         }
-        else
-        {
-                return TRUE;
-        }
+
     }
-    
-    public function GameList()
-    {        
+
+    public function gameList() {
+
         $this->output
             ->set_content_type('application/json')
-            ->set_output(json_encode($this->Games_model->getGames()));
+            ->set_output(json_encode(Model\Games::getInstance()->getGames()));
+
     }
+
+    public function createMap() {
+
+        require_once __DIR__."/utils.php";
+
+        $utils = new Utils();
+
+        die($utils->importGraphs('Batman'));
+
+    }
+
 }

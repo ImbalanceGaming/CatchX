@@ -8,22 +8,22 @@ use \Gas\ORM;
 class GameStates extends ORM {
 
     public $table = 'game_states';
-	
+
 	public $primary_key = 'id';
 
 	function _init()
 	{
 
         self::$relationships = array(
-            'players'  => ORM::has_many('\\Model\\Players'),
-            'games' => ORM::belongs_to('\\Model\\Games'),
-            'graphs'  => ORM::belongs_to('\\Model\\Graphs')
+            'player'  => ORM::has_many('\\Model\\Players'),
+            'game' => ORM::belongs_to('\\Model\\Games'),
+            'graph'  => ORM::belongs_to('\\Model\\Graphs')
         );
 
 		self::$fields = array(
 			'id' => ORM::field('auto[11]'),
-            'game_id' => ORM::field('int[11]'),
-            'graph_id' => ORM::field('int[11]'),
+            'games_id' => ORM::field('int[11]'),
+            'graphs_id' => ORM::field('int[11]'),
 			'victory' => ORM::field('numeric[1]'),
 			'turn' => ORM::field('int[11]'),
 			'number_of_turns' => ORM::field('int[11]'),
@@ -37,4 +37,9 @@ class GameStates extends ORM {
 		);
 
 	}
+
+    public static function getInstance() {
+        return new self;
+    }
+
 }

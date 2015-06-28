@@ -19,9 +19,94 @@ class Games extends ORM {
 		self::$fields = array(
 			'id' => ORM::field('auto[11]'),
 			'name' => ORM::field('char[40]'),
-			'game_state_id' => ORM::field('int[11]'),
+			'active' => ORM::field('int[1]'),
 			'password' => ORM::field('char[255]'),
 		);
 
 	}
+
+    public static function getInstance() {
+        return new self;
+    }
+
+    public function getGames() {
+
+        $games = $this->find_by_active(1);
+
+        $names = [];
+
+        foreach ($games as $game) {
+            $names[] = array(
+                'id' => $game->id,
+                'name' => $game->name
+            );
+        }
+
+        return $names;
+
+    }
+
+    /**
+     * @param int $gameId
+     * @param int $graphId
+     * @param int[] $characterIds Int array of player id's with the first array entry being the criminal
+     */
+    public function createGameState($gameId, $graphId, $characterIds) {
+
+        $gameState = new \Model\GameStates();
+        $gameState->games_id = $gameId;
+        $gameState->graphs_id = $graphId;
+        $gameState->victory = false;
+        $gameState->turn = 0;
+        $gameState->number_of_turns = 24;
+        $gameState->reveal_turns = json_encode([1,6,11,17,23]);
+        $gameState->doubles = 2;
+        $gameState->hiddens = 3;
+        $gameState->players = 5;
+        $gameState->log = "";
+        $gameState->last_known_joker_position = 130;
+        $gameState->turn_side = "good";
+        $gameState->save();
+        $gameState->id = $gameState::last_created()->id;
+
+        $counter = 1;
+
+        foreach ($characterIds as $characterId) {
+            $player = new \Model\Players();
+            $defaultSettings = $player::DEFAULT_SETTINGS;
+
+            $player->game_states_id = $gameState->id;
+            $player->characters_id = $characterId;
+            $player->control = true;
+
+            switch ($counter) {
+                case 1:
+                    $player->position = $defaultSettings['criminal']['position'];
+                    $player->turn = $defaultSettings['criminal']['turn'];
+                    break;
+                case 2:
+                    $player->position = $defaultSettings['detective1']['position'];
+                    $player->turn = $defaultSettings['detective1']['turn'];
+                    break;
+                case 3:
+                    $player->position = $defaultSettings['detective2']['position'];
+                    $player->turn = $defaultSettings['detective2']['turn'];
+                    break;
+                case 4:
+                    $player->position = $defaultSettings['detective3']['position'];
+                    $player->turn = $defaultSettings['detective3']['turn'];
+                    break;
+                case 5:
+                    $player->position = $defaultSettings['detective4']['position'];
+                    $player->turn = $defaultSettings['detective4']['turn'];
+                    break;
+            }
+
+            $player->save();
+
+            $counter++;
+        }
+
+    }
+
 }

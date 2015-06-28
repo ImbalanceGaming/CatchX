@@ -1,7 +1,7 @@
 	<div class="container" id="gamesList">
 		<h1>Games</h1>
-		</br>
-		
+		<br />
+
 			<table class="table">
 				<thead>
 					<tr>
@@ -11,9 +11,9 @@
 						<th>Map</th>
 					</tr>
 				</thead>
-			<tbody>	
-				<tr data-ng-repeat="input in games | startFrom:currentPage*pageSize | limitTo:pageSize" such-href="join/{{ input }}">
-					<td> {{ input }} </td>
+			<tbody>
+				<tr data-ng-repeat="game in games | startFrom:currentPage*pageSize | limitTo:pageSize" such-href="join/{{ game.id }}">
+					<td> {{ game.name }} </td>
 					<td>
 						<img src="images/jokerPortret.png" class="bigImage">
 					</td>
@@ -26,7 +26,7 @@
 					<td>
 						<img src="images/gotham.jpeg" class="bigImage">
 					</td>
-				</tr>	
+				</tr>
 			</tbody>
 			</table>
 			<div class="controls">
@@ -38,5 +38,5 @@
 					Next
 				</button><br><br>
 				<button ng-click="UpdateGames()">Refresh</button>
-			<div>
+			</div>
     </div>

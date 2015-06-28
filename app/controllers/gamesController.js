@@ -6,7 +6,7 @@ function gamesController($scope, $http) {
     $scope.pageSize = 10;
 	$scope.games = [];
 	
-	$scope.UpdateGames = function() { $http.post(backendUrl + 'games/GameList',{}).success(function(data) 
+	$scope.UpdateGames = function() { $http.post(backendUrl + 'games/gameList',{}).success(function(data)
 	{
 		$scope.games = data;
 		

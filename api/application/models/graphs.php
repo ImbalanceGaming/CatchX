@@ -14,7 +14,8 @@ class Graphs extends ORM {
 
         self::$relationships = array(
             'nodes'  => ORM::has_many('\\Model\\Nodes'),
-            'gameStates' => ORM::has_many('\\Model\\GameStates')
+            'gameStates' => ORM::has_many('\\Model\\GameStates'),
+            'edges'  => ORM::has_many('\\Model\\Edges'),
         );
 
 		self::$fields = array(

@@ -8,7 +8,7 @@ catchXApp.config(['$routeProvider',
         templateUrl: 'app/views/gamesList.html',
         controller: "gamesController"
       }).
-	  when('/join/:gameName', {
+	  when('/join/:gameId', {
         templateUrl: 'app/views/join.html',
         controller: "joinController"
       }).
