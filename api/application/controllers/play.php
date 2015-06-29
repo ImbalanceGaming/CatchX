@@ -10,10 +10,14 @@ class play extends CI_Controller {
 
     public function getState() {
 
-        $id = $this->input->post('id');
-        if ($id) {
+        $gameId = $this->input->post('id');
+        $side = $this->input->post('side');
+        if ($gameId) {
+            $gameState = $this->buildGameState($gameId);
 
-            $gameState = $this->buildGameState($id);
+            if ($side == 'good') {
+                $gameState = $this->limitDetectiveInformation($gameState);
+            }
 
             if ($gameState) {
                 $this->output
@@ -34,7 +38,7 @@ class play extends CI_Controller {
             "revealTurns"               => json_decode($game->gameStates()->reveal_turns),
             "doubles"                   => (int)$game->gameStates()->doubles,
             "hiddens"                   => (int)$game->gameStates()->hiddens,
-            "log"                       => $game->gameStates()->log,
+            "log"                       => ($game->gameStates()->log)?json_decode($game->gameStates()->log):"",
             "lastKnownJokerPosition"    => (int)$game->gameStates()->last_known_joker_position,
             "turnSide"                  => $game->gameStates()->turn_side
         );
@@ -95,24 +99,46 @@ class play extends CI_Controller {
         $hiddenTicket = $this->input->post('hiddenTicket') === "true";
 
         if ($password && $gameId) {
-            /** @var Model\GameStates $gameState */
-            $gameState = $game = Model\Games::find($gameId)->gameStates();
+            /** @var Model\GameStates $gameStateObject */
+            $gameStateObject = $game = Model\Games::find($gameId)->gameStates();
 
             if (
-                $gameState->victory == "none" &&
-                $gameState->moveValid($playerId, $positionNodeId, $destinationNodeId, $hiddenTicket, $doubleTicket)
+                $gameStateObject->victory == "none" &&
+                $gameStateObject->moveValid($playerId, $positionNodeId, $destinationNodeId, $hiddenTicket, $doubleTicket)
             ) {
-                $gameState->movePlayer($gameState, $playerId, $destinationNodeId, $hiddenTicket, $doubleTicket);
+                $gameStateObject->movePlayer($playerId, $destinationNodeId, $hiddenTicket, $doubleTicket);
             }
 
-            $gameState->setGameStateControl($gameState->turn_side);
+            $gameStateObject->setGameStateControl($gameStateObject->turn_side);
+
+            $gameState = $this->buildGameState($gameId);
+
+            if ($side == 'good') {
+                $gameState = $this->limitDetectiveInformation($gameState);
+            }
 
             if ($gameState) {
                 $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode($this->buildGameState($gameId)));
+                    ->set_output(json_encode($gameState));
             }
         }
 
     }
+
+    private function limitDetectiveInformation($gameState) {
+
+        if ($gameState['victory'] == 'none') {
+            foreach ($gameState['players'] as $playerKey=>$player) {
+                $playerObject = \Model\Players::find($player['id']);
+                if ($playerObject->characters()->criminal) {
+                    $gameState['players'][$playerKey]['position'] = $gameState['lastKnownJokerPosition'];
+                }
+            }
+        }
+
+        return($gameState);
+
+    }
+
 }
