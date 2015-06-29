@@ -6,32 +6,32 @@ game.graph = {};
 game.turnSide = "";
 
 
-game.Initialize = function (gameState)
+game.Initialize = function (gameState, side)
 {
     game.graph = new Graph(gameState.graph);
 	
     game.notificator = new Notification();
 	game.turnSide = gameState.turnSide;
 	game.NotifyTurnChange(game.turnSide);
-	
-	
+
     for (i = 0; i < gameState.players.length; i++)
     {
         var player = gameState.players[i];
         game.players.push(new Player(
             i,
+            player.id,
             player.position,
             player.turn,
             player.control,
             player.pawnImage,
             player.name
-            ));
+        ));
     }
     
     game.selection = new Selection();
-    game.side = game.DetermineSide(gameState);
+    game.side = side;
     log.Create(gameState);
-    if (game.side == "evil")
+    if (game.side != "good")
 	{
         game.powerups = new Powerups(gameState);
 	}
@@ -73,8 +73,6 @@ game.Update = function (gameState)
 			game.turnSide = gameState.turnSide;
 			game.NotifyTurnChange(game.turnSide);
 		}
-		
-		
         if (game.side != gameState.turnSide)
 		{
             setTimeout(function(){GetState(game.Update)}, 3000);
@@ -88,15 +86,16 @@ game.Update = function (gameState)
 
 game.DetermineSide = function (gameState)
 {
-    if (gameState.players[0].control == '1')
+    if (gameState.players[0].control) {
         return "evil";
-    else
+    } else {
         return "good";
+    }
 }
 
 game.Victory = function (gameState)
 {
-    if (gameState.victory != "0")
+    if (gameState.victory != "none")
     {
         wait = true;
 		

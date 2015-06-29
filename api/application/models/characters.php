@@ -21,6 +21,7 @@ class Characters extends ORM {
 			'id' => ORM::field('auto[11]'),
 			'name' => ORM::field('char[100]'),
 			'pawnImage' => ORM::field('char[100]'),
+            'evil' => ORM::field('numeric[1]'),
 		);
 
 	}

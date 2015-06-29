@@ -4,7 +4,7 @@ function hostController ($scope, $http)
 	$scope.gameName = "";
 	$scope.password = "";
 	$scope.errors = [];
-	$scope.side = "MrX";
+	$scope.side = "evil";
 	$scope.Host = function() 
 	{ 
 		$http({

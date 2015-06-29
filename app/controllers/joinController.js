@@ -16,12 +16,13 @@ function joinController ($scope, $http, $routeParams)
 			if (data.errors.length > 0)
 			{
 				$scope.errors = data.errors;
+                console.log('no');
 			}
 			else
 			{
 				$.cookie('name', $scope.gameName);
 				$.cookie('password', $scope.password);
-				$.cookie('id', data.gameId);
+				$.cookie('id', $scope.gameId);
 				$.cookie('side', side);
 				window.location.href = baseUrl + "play";
 			}

@@ -44,7 +44,7 @@ Selection = function ()
                 double = game.powerups.UseDouble();
             }
             
-            DoMove(this.selectedPlayer.id, this.selectedPlayer.position, node.id, double, hidden);
+            DoMove(this.selectedPlayer.dbId, this.selectedPlayer.position, node.id, double, hidden);
 			if (game.side == "evil")
 				game.powerups.Reset();
             this.selectedPlayer.PlayMoveSound();

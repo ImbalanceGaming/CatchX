@@ -97,7 +97,7 @@ class utils {
         $graphObject->no_of_nodes = $nodeCount;
         $graphObject->name = $graphName;
         $graphObject->save();
-        $graphObject->id = Model\Graphs::last_created()->id;
+        $graphObject->id = $graphObject::last_created()->id;
 
         foreach ($nodes as $key=>$node) {
             foreach ($node->colors as $key2=>$color) {
@@ -110,7 +110,7 @@ class utils {
             $nodeObject->y = $node->y;
             $nodeObject->save();
 
-            $nodes[$key]->dbId = Model\Nodes::last_created()->id;
+            $nodes[$key]->dbId = $nodeObject::last_created()->id;
         }
 
         foreach ($nodes as $key=>$node) {
@@ -128,8 +128,8 @@ class utils {
         foreach ($edges as $edge) {
             $edgeObject = new Model\Edges();
             $edgeObject->graphs_id = $graphObject->id;
-            $edgeObject->node1 = $edge->node1;
-            $edgeObject->node2 = $edge->node2;
+            $edgeObject->node1 = $nodes[$edge->node1]->dbId;
+            $edgeObject->node2 = $nodes[$edge->node2]->dbId;
             $edgeObject->type = $edge->type;
             $edgeObject->colors_id = $this->setColor($edge->color)['dbId'];
             $edgeObject->save();

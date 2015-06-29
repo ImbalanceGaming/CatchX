@@ -42,4 +42,164 @@ class GameStates extends ORM {
         return new self;
     }
 
+    public function moveValid($playerId, $positionNodeId, $destinationNodeId, $hidden, $double) {
+
+        /** @var \Model\Players $player */
+        $player = \Model\Players::find($playerId);
+
+        /** @var \Model\Nodes $node */
+        $node = \Model\Nodes::find($positionNodeId);
+
+        if (
+            !empty($player) &&
+            $player->playerExists($positionNodeId) &&
+            $player->isDestinationEmpty($this->id, $destinationNodeId) &&
+            $node->isNodeAdjacent($destinationNodeId) &&
+            (($hidden && $this->hiddens > 0) || !$hidden) &&
+            (($double && $this->doubles > 0) || !$double)
+        ) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public function movePlayer(&$gameState, $playerId, $destinationNodeId, $hidden, $double) {
+
+        /** @var \Model\Players $player */
+        $player = \Model\Players::find($playerId);
+        $currentNode = \Model\Nodes::find($player->position);
+
+        $player->position = $destinationNodeId;
+        $player->turn = false;
+
+        $player->save();
+
+        if ($player->characters()->criminal) {
+            foreach ($currentNode->nodeLinks() as $nodeLink) {
+                if ($nodeLink->linked_node_id == $destinationNodeId) {
+                    $color = $nodeLink->colors()->hex_value;
+                }
+            }
+            $this->criminalMove($gameState, $player, $hidden, $double, $color);
+        } else {
+            $this->detectiveMove($gameState, $player);
+        }
+
+        $player->save();
+
+    }
+
+    /**
+     * @param \Model\Players $player
+     * @param int $hidden
+     * @param int $double
+     */
+    public function criminalMove(&$gameState, &$player, $hidden, $double, $color) {
+
+        //Check if joker used a hidden
+        if ($hidden) {
+            $gameState->hiddens--;
+        }
+
+        //Check if joker used a double
+        if ($double) { //If he does he keeps te turn
+            $gameState->doubles--;
+            $player->turn = true;
+        } else { //Else the turn goes to the batman team
+            $gameState->turn_side = "good";
+            foreach ($gameState->player() as $player2) {
+                if (!$player2->characters()->criminal) {
+                    $player2->turn = true;
+                    $player2->save();
+                }
+            }
+            $player->turn = false;
+        }
+
+        //Increment turn
+        $gameState->turn++;
+
+        //Check if the jokoker reveals himself and update the log
+        if (in_array($gameState->turn, json_decode($gameState->reveal_turns))) {
+            $gameState->last_known_joker_position = $player->position;
+            $gameState->log = json_encode(array('color' => $color, 'position' => $player->position));
+        } else {
+            $gameState->log = json_encode(array('color' => $color));
+        }
+
+        //Check if the joker has won
+        if ($gameState->turn == $gameState->numberOfTurns) {
+            $gameState->victory = "evil";
+            $gameState->game()->active = false;
+            $gameState->game()->save();
+        }
+
+        //Give the joker control    TODO (this need to be refactored out)
+        foreach ($gameState->player() as $player2) {
+            if (!$player2->characters()->criminal) {
+                $player2->control = false;
+                $player2->save();
+            }
+        }
+        $player->control = true;
+
+        $gameState->save();
+
+    }
+
+    public function detectiveMove(&$gameState, &$player) {
+
+        $turnOver = true;
+        /** @var \Model\Players $evilPlayer */
+        $evilPlayer = null;
+        foreach ($gameState->player() as $player2) {
+            if (!$player2->characters()->criminal && $player2->turn) {
+                $turnOver = false;
+            } elseif ($player2->characters()->criminal) {
+                $evilPlayer = $player2;
+            }
+        }
+
+        if ($turnOver) {
+            $gameState->turn_side = "evil";
+            $evilPlayer->turn = true;
+            $evilPlayer->save();
+        }
+
+        if ($player->position == $evilPlayer->position) {
+            $gameState->victory = "good";
+            $gameState->game()->active = false;
+            $gameState->game()->save();
+        }
+
+        $gameState->save();
+
+    }
+
+    public function setGameStateControl($side) {
+
+        $criminalControl = false;
+        $detectiveControl = false;
+
+        if ($side == "good") {
+            $criminalControl = false;
+            $detectiveControl = true;
+        } else if ($side == "evil") {
+            $criminalControl = true;
+            $detectiveControl = false;
+        }
+
+        foreach ($this->player() as $player) {
+            if (!$player->characters()->criminal) {
+                $player->control = $detectiveControl;
+            } else {
+                $player->control = $criminalControl;
+            }
+            $player->save();
+        }
+
+    }
+
 }

@@ -1,6 +1,7 @@
-Player = function(id, position, turn, control, image, name)
+Player = function(id, dbId, position, turn, control, image, name)
 {
     this.id = id;
+    this.dbId = dbId;
     this.position = position;
     this.turn = turn;
     this.control = control;
@@ -84,7 +85,7 @@ Player = function(id, position, turn, control, image, name)
 		}
         else
             this.htmlElement.css('pointer-events','none');
-        
+
         var node = game.graph.nodes[this.position];
         var x = node.x - this.htmlElement.width() / 2;
         var y = node.y - this.htmlElement.height() / 2;

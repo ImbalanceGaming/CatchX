@@ -53,10 +53,12 @@ class Games extends ORM {
      */
     public function createGameState($gameId, $graphId, $characterIds) {
 
+        $graph = \Model\Graphs::find($graphId);
+
         $gameState = new \Model\GameStates();
         $gameState->games_id = $gameId;
         $gameState->graphs_id = $graphId;
-        $gameState->victory = false;
+        $gameState->victory = 'none';
         $gameState->turn = 0;
         $gameState->number_of_turns = 24;
         $gameState->reveal_turns = json_encode([1,6,11,17,23]);
@@ -64,7 +66,7 @@ class Games extends ORM {
         $gameState->hiddens = 3;
         $gameState->players = 5;
         $gameState->log = "";
-        $gameState->last_known_joker_position = 130;
+        $gameState->last_known_joker_position = $graph->no_of_nodes;
         $gameState->turn_side = "good";
         $gameState->save();
         $gameState->id = $gameState::last_created()->id;
@@ -77,28 +79,32 @@ class Games extends ORM {
 
             $player->game_states_id = $gameState->id;
             $player->characters_id = $characterId;
-            $player->control = true;
 
             switch ($counter) {
                 case 1:
-                    $player->position = $defaultSettings['criminal']['position'];
+                    $player->position = $graph->no_of_nodes;
                     $player->turn = $defaultSettings['criminal']['turn'];
+                    $player->control = $defaultSettings['criminal']['control'];
                     break;
                 case 2:
-                    $player->position = $defaultSettings['detective1']['position'];
+                    $player->position = $graph->no_of_nodes-4;
                     $player->turn = $defaultSettings['detective1']['turn'];
+                    $player->control = $defaultSettings['detective1']['control'];
                     break;
                 case 3:
-                    $player->position = $defaultSettings['detective2']['position'];
+                    $player->position = $graph->no_of_nodes-3;
                     $player->turn = $defaultSettings['detective2']['turn'];
+                    $player->control = $defaultSettings['detective2']['control'];
                     break;
                 case 4:
-                    $player->position = $defaultSettings['detective3']['position'];
+                    $player->position = $graph->no_of_nodes-2;
                     $player->turn = $defaultSettings['detective3']['turn'];
+                    $player->control = $defaultSettings['detective3']['control'];
                     break;
                 case 5:
-                    $player->position = $defaultSettings['detective4']['position'];
+                    $player->position = $graph->no_of_nodes-1;
                     $player->turn = $defaultSettings['detective4']['turn'];
+                    $player->control = $defaultSettings['detective4']['control'];
                     break;
             }
 

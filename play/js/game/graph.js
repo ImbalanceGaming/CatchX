@@ -5,31 +5,35 @@ Graph = function(graph)
     
     this.Initialize = function (graph)
     {
-        for (i = 0; i < graph.nodes.length; i++)
+        for (var i = 0; i < graph.nodes.length; i++)
         {
-            this.nodes.push(new Node(
-                graph.nodes[i].x,
-                graph.nodes[i].y,
-                graph.nodes[i].adjacent,
-                graph.nodes[i].colors,
-                i));
+            this.nodes[graph.nodes[i].dbId] = (
+                new Node(
+                    i,
+                    graph.nodes[i].x,
+                    graph.nodes[i].y,
+                    graph.nodes[i].adjacent,
+                    graph.nodes[i].colors,
+                    graph.nodes[i].dbId
+                )
+            );
         }
         
-        for (i = 0; i < graph.edges.length; i++)
+        for (var j = 0; j < graph.edges.length; j++)
         {
             this.edges.push(new Edge(
-                graph.edges[i].node1,
-                graph.edges[i].node2,
-                graph.edges[i].type,
-                graph.edges[i].color,
-                i,
-                graph));
+                graph.edges[j].node1,
+                graph.edges[j].node2,
+                graph.edges[j].type,
+                graph.edges[j].color,
+                j,
+                this.nodes));
         }
     };
     this.Initialize(graph);
 };
 
-Node = function(x, y, adjacentNodes, colors, id)
+Node = function(entry, x, y, adjacentNodes, colors, id)
 {
     this.x = x;
     this.y = y;
@@ -55,9 +59,9 @@ Node = function(x, y, adjacentNodes, colors, id)
     
     this.Initialize = function()
     {
-        $("#map").append("<div id='node_" + this.id + "' class='node' style='left:" + (this.x - 25) + "px;top:" + (this.y - 25) + "px;' >" + i + "</div>");
+        $("#map").append("<div id='node_" + this.id + "' class='node' style='left:" + (this.x - 25) + "px;top:" + (this.y - 25) + "px;' >" + entry + "</div>");
         this.htmlElement = $("#node_" + this.id);
-	if (this.colors.indexOf("#325E32") !== -1)
+	    if (this.colors.indexOf("#325E32") !== -1)
             this.htmlElement.addClass("nodeWithGreenConnection");
         if (this.colors.indexOf("#C2B615") !== -1)
             this.htmlElement.addClass("nodeWithYellowConnection");
@@ -70,7 +74,7 @@ Node = function(x, y, adjacentNodes, colors, id)
     this.Initialize();
 };
 
-Edge = function(node1,node2,type,color,id, graph)
+Edge = function(node1,node2,type,color,id, nodes)
 {
     this.node1 = node1;
     this.node2 = node2;
@@ -79,15 +83,15 @@ Edge = function(node1,node2,type,color,id, graph)
     this.id = id;
     this.htmlElement = {};
     
-    this.Initialize = function(graph)
+    this.Initialize = function(nodes)
     {
         switch(this.type) {
             case "straight":
                 this.htmlElement = document.createElementNS('http://www.w3.org/2000/svg','line');
-                this.htmlElement.setAttribute('x1',graph.nodes[node1].x);
-                this.htmlElement.setAttribute('y1',graph.nodes[node1].y);
-                this.htmlElement.setAttribute('x2',graph.nodes[node2].x);
-                this.htmlElement.setAttribute('y2',graph.nodes[node2].y);
+                this.htmlElement.setAttribute('x1',nodes[node1].x);
+                this.htmlElement.setAttribute('y1',nodes[node1].y);
+                this.htmlElement.setAttribute('x2',nodes[node2].x);
+                this.htmlElement.setAttribute('y2',nodes[node2].y);
                 this.htmlElement.setAttribute('stroke',this.color);
                 this.lineSize = 1;
             
@@ -112,5 +116,5 @@ Edge = function(node1,node2,type,color,id, graph)
                 break;
         }
     };
-    this.Initialize(graph);
+    this.Initialize(nodes);
 };

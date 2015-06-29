@@ -9,19 +9,19 @@ function GetState(functionThatDoesSomethingWithState)
       dataType: "json",
       url: backendUrl + "play/getState",
       data: { id: id, password: password, side:side},
-      success: function(data) {functionThatDoesSomethingWithState(data);},
+      success: function(data) {functionThatDoesSomethingWithState(data, side);},
       error: function() {setTimeout(function(){GetState(functionThatDoesSomethingWithState);}, 1000);}
     });
 }
 
 // TODO: Replace url
-function DoMove(player, position, destination, doubleTicket, hiddenTicket)
+function DoMove(playerId, positionNodeId, destinationNodeId, doubleTicket, hiddenTicket)
 {
     $.ajax({
       type:'POST',
       dataType: "json",
       url: backendUrl + "play/doMove",
-      data: { id: id, password: password, side: side, player: player, position:position , destination:destination, doubleTicket:doubleTicket,hiddenTicket:hiddenTicket},
+      data: { gameId: id, password: password, side: side, playerId: playerId, positionNodeId:positionNodeId , destinationNodeId:destinationNodeId, doubleTicket:doubleTicket,hiddenTicket:hiddenTicket},
       success: function(data) 
       {
           game.Update(data);

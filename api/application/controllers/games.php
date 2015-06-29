@@ -61,6 +61,7 @@ class games extends CI_Controller {
             } else {
                 $game->createGameState($game->id, $mapId->id, [1,2,3,4,5]);
                 $data->id = $game->id;
+                $data->errors = [];
             }
 
             $this->output
@@ -97,7 +98,7 @@ class games extends CI_Controller {
 
         $utils = new Utils();
 
-        die($utils->importGraphs('Batman'));
+        die(var_dump($utils->importGraphs('Batman')));
 
     }
 

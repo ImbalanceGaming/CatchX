@@ -9,45 +9,69 @@ class Players extends ORM {
 
     const DEFAULT_SETTINGS = array(
         'criminal' => array(
-            'position' => 130,
-            'turn' => false
+            'turn' => false,
+            'control' => false
         ),
         'detective1' => array(
-            'position' => 126,
-            'turn' => true
+            'turn' => true,
+            'control' => true
         ),
         'detective2' => array(
-            'position' => 127,
-            'turn' => true
+            'turn' => true,
+            'control' => true
         ),
         'detective3' => array(
-            'position' => 128,
-            'turn' => true
+            'turn' => true,
+            'control' => true
         ),
         'detective4' => array(
-            'position' => 129,
-            'turn' => true
+            'turn' => true,
+            'control' => true
         )
     );
-	
-	public $primary_key = 'id';
 
-	function _init()
-	{
+    public $primary_key = 'id';
+
+    function _init() {
 
         self::$relationships = array(
             'gameStates' => ORM::belongs_to('\\Model\\GameStates'),
             'characters' => ORM::belongs_to('\\Model\\Characters')
         );
 
-		self::$fields = array(
-			'id' => ORM::field('auto[11]'),
-			'game_states_id' => ORM::field('int[11]'),
-			'characters_id' => ORM::field('int[11]'),
-			'position' => ORM::field('int[11]'),
-			'turn' => ORM::field('numeric[1]'),
-			'control' => ORM::field('numeric[1]'),
-		);
+        self::$fields = array(
+            'id' => ORM::field('auto[11]'),
+            'game_states_id' => ORM::field('int[11]'),
+            'characters_id' => ORM::field('int[11]'),
+            'position' => ORM::field('int[11]'),
+            'turn' => ORM::field('numeric[1]'),
+            'control' => ORM::field('numeric[1]'),
+        );
 
-	}
+    }
+
+    public function playerExists($position) {
+
+        if ((int)$this->position === $position) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public function isDestinationEmpty($gameStateId, $destinationNodeId) {
+
+        $players = \Model\Players::find_by_game_states_id($gameStateId);
+
+        foreach ($players as $player) {
+            if (!$player->characters()->criminal && $player->position == $destinationNodeId) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
 }
