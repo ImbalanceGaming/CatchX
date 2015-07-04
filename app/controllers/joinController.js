@@ -1,5 +1,4 @@
 function joinController($scope, $http, $routeParams) {
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     $scope.password = "";
     $scope.errors = [];
     $scope.gameId = $routeParams.gameId;
