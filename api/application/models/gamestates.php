@@ -42,6 +42,16 @@ class GameStates extends ORM {
         return new self;
     }
 
+    /**
+     * Make sure a player move is valid
+     *
+     * @param int $playerId
+     * @param int $positionNodeId
+     * @param int $destinationNodeId
+     * @param bool $hidden
+     * @param bool $double
+     * @return bool
+     */
     public function moveValid($playerId, $positionNodeId, $destinationNodeId, $hidden, $double) {
 
         /** @var \Model\Players $player */
@@ -65,6 +75,14 @@ class GameStates extends ORM {
 
     }
 
+    /**
+     * Update database when a player moves
+     *
+     * @param int $playerId
+     * @param int $destinationNodeId
+     * @param bool $hidden
+     * @param bool $double
+     */
     public function movePlayer($playerId, $destinationNodeId, $hidden, $double) {
 
         /** @var \Model\Players $player */
@@ -92,6 +110,11 @@ class GameStates extends ORM {
 
     }
 
+    /**
+     * Set which players current have control of their characters
+     *
+     * @param string $side
+     */
     public function setGameStateControl($side) {
 
         $criminalControl = false;
@@ -117,7 +140,9 @@ class GameStates extends ORM {
     }
 
     /**
-     * @param \Model\Games
+     * Process the criminal turn
+     *
+     * @param \Model\Games $game
      * @param \Model\Players $player
      * @param int $hidden
      * @param int $double
@@ -177,6 +202,12 @@ class GameStates extends ORM {
 
     }
 
+    /**
+     * Process the detective move
+     *
+     * @param \Model\Games $game
+     * @param \Model\Players $player
+     */
     private function detectiveMove(&$game, &$player) {
 
         $turnOver = true;
@@ -206,6 +237,12 @@ class GameStates extends ORM {
 
     }
 
+    /**
+     * Update the game log depending on the criminal move
+     *
+     * @param $color
+     * @param null $position
+     */
     private function updateLog($color, $position = null) {
 
         if (!empty($position)) {

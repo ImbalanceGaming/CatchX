@@ -14,7 +14,7 @@ log.Create = function (gameState) {
         }
     }
     this.Update(gameState);
-}
+};
 
 
 log.Update = function (gameState) {
@@ -27,4 +27,4 @@ log.Update = function (gameState) {
                 $("#turn" + (i + 1)).html(newLog[i].position);
         }
     }
-}
+};

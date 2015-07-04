@@ -25,6 +25,12 @@ class Nodes extends ORM {
 
     }
 
+    /**
+     * Check if a player is currently in a node
+     *
+     * @param int $nodeId
+     * @return bool
+     */
     public function isNodeAdjacent($nodeId) {
 
         $nodeLinks = $this->nodeLinks();

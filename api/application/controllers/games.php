@@ -2,6 +2,9 @@
 
 class games extends CI_Controller {
 
+    /**
+     * Base constructor for class
+     */
     public function __construct() {
 
         parent::__construct();
@@ -10,6 +13,9 @@ class games extends CI_Controller {
 
     }
 
+    /**
+     * Check to make sure login details are correct for joining games
+     */
     public function checkLogin() {
 
         $gameId = $this->input->post('gameId');
@@ -33,7 +39,10 @@ class games extends CI_Controller {
 
     }
 
-    public function Host() {
+    /**
+     * Create games and game state for new games
+     */
+    public function host() {
 
         $this->form_validation->set_rules('gameName', 'Game name', 'required|callback_gameNameIsUnique');
         $this->form_validation->set_rules('password', 'Password', 'required');
@@ -71,19 +80,28 @@ class games extends CI_Controller {
 
     }
 
+    /**
+     * Make sure games have unique names (Only applies to active games)
+     *
+     * @param string $gameName
+     * @return bool
+     */
     public function gameNameIsUnique($gameName) {
 
         $games = Model\Games::getInstance()->getGames();
 
         if (in_array($gameName, $games)) {
             $this->form_validation->set_message('gameNameIsUnique', 'Game name already exists');
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
 
     }
 
+    /**
+     * Get the list of active games and output as JSON
+     */
     public function gameList() {
 
         $this->output
@@ -92,13 +110,19 @@ class games extends CI_Controller {
 
     }
 
-    public function createMap() {
+    /**
+     * Create new map from given JSON string or from base batman template
+     *
+     * @param string $baseTemplate JSON encoded array
+     * @return array
+     */
+    public function createMap($baseTemplate = null) {
 
         require_once __DIR__."/utils.php";
 
         $utils = new Utils();
 
-        die(var_dump($utils->importGraphs('Batman')));
+        return $utils->importGraphs('Batman', $baseTemplate);
 
     }
 

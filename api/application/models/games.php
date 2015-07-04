@@ -29,6 +29,11 @@ class Games extends ORM {
         return new self;
     }
 
+    /**
+     * Get active games and return their id and name
+     *
+     * @return array
+     */
     public function getGames() {
 
         $games = $this->find_by_active(1);
@@ -47,6 +52,8 @@ class Games extends ORM {
     }
 
     /**
+     * Create a new game state in the database
+     *
      * @param int $gameId
      * @param int $graphId
      * @param int[] $characterIds Int array of player id's with the first array entry being the criminal

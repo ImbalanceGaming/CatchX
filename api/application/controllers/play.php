@@ -2,18 +2,16 @@
 
 class play extends CI_Controller {
 
-    public function index($side = "good") {
-
-        $data = array('side' => $side);
-        $this->load->view("play/index", $data);
-    }
-
+    /**
+     * Get the current state of a game
+     */
     public function getState() {
 
         $gameId = $this->input->post('id');
         $side = $this->input->post('side');
+        $initialLoad = $this->input->post('initialLoad');
         if ($gameId) {
-            $gameState = $this->buildGameState($gameId);
+            $gameState = $this->buildGameState($gameId, $initialLoad);
 
             if ($side == 'good') {
                 $gameState = $this->limitDetectiveInformation($gameState);
@@ -27,7 +25,58 @@ class play extends CI_Controller {
         }
     }
 
-    public function buildGameState($gameId) {
+    /**
+     * Build the map information for a game into an array
+     *
+     * @param int $graphId
+     * @return array
+     */
+    public function buildMap($graphId) {
+
+        $graph = Model\Graphs::find($graphId);
+
+        $map = array();
+
+        foreach ($graph->nodes() as $node) {
+            $nodeData = array(
+                'dbId'  => (int)$node->id,
+                'x'     => (int)$node->x,
+                'y'     => (int)$node->y,
+            );
+
+            foreach ($node->nodeLinks() as $nodeLink) {
+                $color = $nodeLink->colors();
+
+                $nodeData['adjacent'][] = (int)$nodeLink->linked_node_id;
+                $nodeData['colors'][] = $color->hex_value;
+            }
+
+            $map['nodes'][] = $nodeData;
+
+        }
+
+        foreach ($graph->edges() as $edge) {
+            $color = $edge->colors();
+            $map['edges'][] = array(
+                'node1' => (int)$edge->node1,
+                'node2' => (int)$edge->node2,
+                'type' => $edge->type,
+                'color' => $color->hex_value
+            );
+        }
+
+        return $map;
+
+    }
+
+    /**
+     * Build the game state for a game
+     *
+     * @param int $gameId
+     * @param bool $initialLoad set to true if you want the map information
+     * @return array
+     */
+    public function buildGameState($gameId, $initialLoad) {
 
         $game = Model\Games::find($gameId);
 
@@ -55,38 +104,17 @@ class play extends CI_Controller {
             );
         }
 
-        foreach ($game->gameStates()->graph()->nodes() as $node) {
-            $nodeData = array(
-                'dbId'  => (int)$node->id,
-                'x'     => (int)$node->x,
-                'y'     => (int)$node->y,
-            );
-
-            foreach ($node->nodeLinks() as $nodeLink) {
-                $color = $nodeLink->colors();
-
-                $nodeData['adjacent'][] = (int)$nodeLink->linked_node_id;
-                $nodeData['colors'][] = $color->hex_value;
-            }
-
-            $gameState['graph']['nodes'][] = $nodeData;
-
-        }
-
-        foreach ($game->gameStates()->graph()->edges() as $edge) {
-            $color = $edge->colors();
-            $gameState['graph']['edges'][] = array(
-                'node1' => (int)$edge->node1,
-                'node2' => (int)$edge->node2,
-                'type' => $edge->type,
-                'color' => $color->hex_value
-            );
+        if ($initialLoad) {
+            $gameState['graph'] = $this->buildMap($game->gameStates()->graph()->id);
         }
 
         return $gameState;
 
     }
 
+    /**
+     * Process the move for a player
+     */
     public function doMove() {
 
         $password = $this->input->post('password');
@@ -111,7 +139,7 @@ class play extends CI_Controller {
 
             $gameStateObject->setGameStateControl($gameStateObject->turn_side);
 
-            $gameState = $this->buildGameState($gameId);
+            $gameState = $this->buildGameState($gameId, false);
 
             if ($side == 'good') {
                 $gameState = $this->limitDetectiveInformation($gameState);
@@ -126,6 +154,12 @@ class play extends CI_Controller {
 
     }
 
+    /**
+     * Used to determine if it is time to show the criminal move to the detectives
+     *
+     * @param array $gameState
+     * @return array
+     */
     private function limitDetectiveInformation($gameState) {
 
         if ($gameState['victory'] == 'none') {

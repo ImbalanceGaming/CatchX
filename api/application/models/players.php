@@ -50,6 +50,12 @@ class Players extends ORM {
 
     }
 
+    /**
+     * Check if a player is currently in a position
+     *
+     * @param int $position
+     * @return bool
+     */
     public function playerExists($position) {
 
         if ((int)$this->position === $position) {
@@ -60,6 +66,13 @@ class Players extends ORM {
 
     }
 
+    /**
+     * Check if a node currently contains a player
+     *
+     * @param int $gameStateId
+     * @param int $destinationNodeId
+     * @return bool
+     */
     public function isDestinationEmpty($gameStateId, $destinationNodeId) {
 
         $players = \Model\Players::find_by_game_states_id($gameStateId);

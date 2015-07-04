@@ -8,6 +8,13 @@
 
 class utils {
 
+    /**
+     * Create new maps in the database from a JSON encoded array
+     *
+     * @param string $graphName
+     * @param string $baseTemplate
+     * @return array
+     */
     public function importGraphs($graphName, $baseTemplate = null) {
 
         if (empty($baseTemplate)) {
